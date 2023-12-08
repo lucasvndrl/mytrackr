@@ -11,5 +11,5 @@ export const TitleContainer = styled.View`
   background-color: ${COLORS.white};
   height: 70px;
   justify-content: flex-start;
-  padding: 5px;
+  padding: 10px;
 `;

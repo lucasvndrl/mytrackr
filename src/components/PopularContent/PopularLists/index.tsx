@@ -1,5 +1,12 @@
 import React from "react";
-import { Container, ImageCover, ListSection, PopularList } from "./styles";
+import {
+  Container,
+  ImageCover,
+  ImageItem,
+  ListSection,
+  PopularList,
+  TitleContainer,
+} from "./styles";
 import Typography from "../../Typography";
 import { COLORS } from "../../../constants/theme";
 import { Image } from "react-native";
@@ -15,22 +22,11 @@ const PopularLists = () => {
       <PopularList>
         <ListSection>
           <ImageCover>
-            <Image
-              source={movie1}
-              style={{
-                height: 65,
-                width: 50,
-                borderTopLeftRadius: 10,
-              }}
-            />
-            <Image
-              source={movie4}
-              style={{
-                height: 65,
-                width: 50,
-                borderTopRightRadius: 10,
-              }}
-            />
+            <ImageItem source={movie4} rightValue={0} />
+            <ImageItem source={movie4} rightValue={15} />
+            <ImageItem source={movie4} rightValue={25} />
+            <ImageItem source={movie4} rightValue={35} />
+            <ImageItem source={movie4} rightValue={50} />
           </ImageCover>
           <Typography type="Menu Title" color={COLORS.white} textAlign="center">
             Super hero movies
@@ -38,22 +34,11 @@ const PopularLists = () => {
         </ListSection>
         <ListSection>
           <ImageCover>
-            <Image
-              source={movie1}
-              style={{
-                height: 65,
-                width: 50,
-                borderTopLeftRadius: 10,
-              }}
-            />
-            <Image
-              source={movie4}
-              style={{
-                height: 65,
-                width: 50,
-                borderTopRightRadius: 10,
-              }}
-            />
+            <ImageItem source={movie4} rightValue={0} />
+            <ImageItem source={movie4} rightValue={15} />
+            <ImageItem source={movie4} rightValue={25} />
+            <ImageItem source={movie4} rightValue={35} />
+            <ImageItem source={movie4} rightValue={50} />
           </ImageCover>
           <Typography type="Menu Title" color={COLORS.white} textAlign="center">
             Super hero movies
@@ -61,26 +46,21 @@ const PopularLists = () => {
         </ListSection>
         <ListSection>
           <ImageCover>
-            <Image
-              source={movie1}
-              style={{
-                height: 65,
-                width: 50,
-                borderTopLeftRadius: 10,
-              }}
-            />
-            <Image
-              source={movie4}
-              style={{
-                height: 65,
-                width: 50,
-                borderTopRightRadius: 10,
-              }}
-            />
+            <ImageItem source={movie4} rightValue={0} />
+            <ImageItem source={movie4} rightValue={15} />
+            <ImageItem source={movie4} rightValue={25} />
+            <ImageItem source={movie4} rightValue={35} />
+            <ImageItem source={movie4} rightValue={50} />
           </ImageCover>
-          <Typography type="Menu Title" color={COLORS.white} textAlign="center">
-            Super hero movies
-          </Typography>
+          <TitleContainer>
+            <Typography
+              type="Menu Title"
+              color={COLORS.white}
+              textAlign="center"
+            >
+              Super hero movies
+            </Typography>
+          </TitleContainer>
         </ListSection>
       </PopularList>
     </Container>
