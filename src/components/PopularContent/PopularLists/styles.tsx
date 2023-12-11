@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { COLORS } from "../../../constants/theme";
 
 export const Container = styled.View`
-  background-color: ${COLORS.secondaryPurple};
+  background-color: ${COLORS.background};
   width: 100%;
   padding: 10px;
 `;
@@ -25,7 +25,6 @@ export const ImageCover = styled.View`
   width: 100px;
   border-radius: 10px;
   flex-direction: row;
-  position: relative;
 `;
 
 export const ImageItem = styled.Image<{
@@ -33,8 +32,7 @@ export const ImageItem = styled.Image<{
 }>`
   height: 65px;
   width: 50px;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-radius: 10px;
   position: absolute;
   right: ${(props) => props.rightValue}px;
 `;

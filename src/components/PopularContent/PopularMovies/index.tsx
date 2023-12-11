@@ -13,7 +13,7 @@ const PopularMovies = () => {
   const movies = [movie1, movie2, movie3, movie4, movie5];
   return (
     <Container>
-      <Typography type="Paragraph" color={COLORS.background}>
+      <Typography type="Paragraph" color={COLORS.white}>
         Popular movies this month
       </Typography>
       <MovieList>

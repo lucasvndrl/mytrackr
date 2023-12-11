@@ -20,7 +20,6 @@ const CustomStackNavigation = ({
 }: AppRoutesProps) => {
   const { Navigator, Screen, Group } = Stack;
   const { authUser } = useAuth();
-  StatusBar.setBackgroundColor(COLORS.background);
   const screens = useMemo(() => {
     if (!authUser.logged) {
       return (
@@ -46,8 +45,8 @@ const CustomStackNavigation = ({
                   onPress={() => props.navigation.openDrawer()}
                 />
               ),
-              navigationBarColor: COLORS.white,
-              statusBarColor: COLORS.white,
+              navigationBarColor: COLORS.background,
+              statusBarColor: COLORS.background,
             }}
           />
         </>
@@ -60,7 +59,6 @@ const CustomStackNavigation = ({
       <Navigator
         screenOptions={{
           headerShown: false,
-          statusBarColor: COLORS.background,
           header: (props: any) => (
             <ScreenHeader
               {...props}

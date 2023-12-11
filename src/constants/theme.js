@@ -1,5 +1,6 @@
 const COLORS = {
   background: "#1F1D36",
+  secondaryBackground: "#2d2a4a",
   white: "#FFFFFF",
   primaryPurple: "#9C4A8B",
   secondaryPurple: "#E9A6A6",

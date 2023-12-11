@@ -2,14 +2,14 @@ import styled from "styled-components/native";
 import { COLORS } from "../../constants/theme";
 
 export const Container = styled.View`
-  background-color: ${COLORS.secondaryPurple};
+  background-color: ${COLORS.background};
   width: 100%;
   padding: 10px;
 `;
 
 export const ReviewRow = styled.View`
   width: 100%;
-  background-color: ${COLORS.background};
+  background-color: ${COLORS.secondaryBackground};
   border-radius: 10px;
   flex-direction: row;
   justify-content: space-between;

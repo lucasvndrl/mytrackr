@@ -16,47 +16,47 @@ const PopularLists = () => {
   const movie1 = require("../../../assets/images/batman.png");
   return (
     <Container>
-      <Typography type="Paragraph" color={COLORS.background}>
+      <Typography type="Paragraph" color={COLORS.white}>
         Popular lists this month
       </Typography>
       <PopularList>
         <ListSection>
           <ImageCover>
             <ImageItem source={movie4} rightValue={0} />
-            <ImageItem source={movie4} rightValue={15} />
-            <ImageItem source={movie4} rightValue={25} />
-            <ImageItem source={movie4} rightValue={35} />
-            <ImageItem source={movie4} rightValue={50} />
+            <ImageItem source={movie4} rightValue={10} />
+            <ImageItem source={movie4} rightValue={20} />
+            <ImageItem source={movie4} rightValue={30} />
+            <ImageItem source={movie4} rightValue={40} />
           </ImageCover>
-          <Typography type="Menu Title" color={COLORS.white} textAlign="center">
+          <Typography type="Menu Title" color={COLORS.white} textAlign="left">
             Super hero movies
           </Typography>
         </ListSection>
         <ListSection>
           <ImageCover>
             <ImageItem source={movie4} rightValue={0} />
-            <ImageItem source={movie4} rightValue={15} />
-            <ImageItem source={movie4} rightValue={25} />
-            <ImageItem source={movie4} rightValue={35} />
-            <ImageItem source={movie4} rightValue={50} />
+            <ImageItem source={movie4} rightValue={10} />
+            <ImageItem source={movie4} rightValue={20} />
+            <ImageItem source={movie4} rightValue={30} />
+            <ImageItem source={movie4} rightValue={40} />
           </ImageCover>
-          <Typography type="Menu Title" color={COLORS.white} textAlign="center">
+          <Typography type="Menu Title" color={COLORS.white} textAlign="left">
             Super hero movies
           </Typography>
         </ListSection>
         <ListSection>
           <ImageCover>
             <ImageItem source={movie4} rightValue={0} />
-            <ImageItem source={movie4} rightValue={15} />
-            <ImageItem source={movie4} rightValue={25} />
-            <ImageItem source={movie4} rightValue={35} />
-            <ImageItem source={movie4} rightValue={50} />
+            <ImageItem source={movie4} rightValue={10} />
+            <ImageItem source={movie4} rightValue={20} />
+            <ImageItem source={movie4} rightValue={30} />
+            <ImageItem source={movie4} rightValue={40} />
           </ImageCover>
           <TitleContainer>
             <Typography
               type="Menu Title"
               color={COLORS.white}
-              textAlign="center"
+              textAlign="left"
             >
               Super hero movies
             </Typography>
