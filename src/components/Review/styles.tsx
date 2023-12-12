@@ -1,10 +1,11 @@
 import styled from "styled-components/native";
 import { COLORS } from "../../constants/theme";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
   background-color: ${COLORS.background};
   width: 100%;
-  padding: 10px;
+  padding: ${RFValue(10)}px;
 `;
 
 export const ReviewRow = styled.View`
@@ -16,22 +17,19 @@ export const ReviewRow = styled.View`
 `;
 
 export const ImageItem = styled.Image`
-  height: 100%;
-  width: 20%;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  height: ${RFValue(100)}px;
+  width: ${RFValue(60)}px;
+  border-radius: 10px;
 `;
 
 export const ProfilePictureRow = styled.View`
   width: 10%;
-  padding: 5px;
+  padding: ${RFValue(5)}px;
 `;
 
 export const CommentSection = styled.View`
   flex-direction: column;
-  margin-left: 20px;
+  margin-left: ${RFValue(15)}px;
   width: 65%;
 `;
 

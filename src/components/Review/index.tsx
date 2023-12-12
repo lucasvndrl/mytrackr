@@ -11,37 +11,48 @@ import Typography from "../Typography";
 import { COLORS } from "../../constants/theme";
 import { Image, TouchableOpacity } from "react-native";
 import { ReviewType } from "../../types/Review";
+import { useNavigation } from "@react-navigation/native";
 
 const Review = (review: ReviewType) => {
+  const navigate = useNavigation();
+
   return (
-    <Container>
-      <ReviewRow>
-        <ProfilePictureRow>
-          <ProfileIcon source={review.userIcon} />
-        </ProfilePictureRow>
-        <CommentSection>
-          <Typography type="Paragraph" color={COLORS.white}>
-            {review.movieTitle}
-          </Typography>
-          <Typography type="Small paragraph" color={COLORS.green}>
-            {review.reviewBy}
-          </Typography>
-          <Typography
-            type="Small paragraph"
-            color={COLORS.white}
-            textAlign="left"
-          >
-            {review.reviewText}
-          </Typography>
-          <TouchableOpacity>
-            <Typography type="Small paragraph" color={COLORS.primaryPurple}>
-              Read more
+    <TouchableOpacity
+      onPress={() =>
+        navigate.navigate("ReviewDetail", {
+          review,
+        })
+      }
+    >
+      <Container>
+        <ReviewRow>
+          <ProfilePictureRow>
+            <ProfileIcon source={review.userIcon} />
+          </ProfilePictureRow>
+          <CommentSection>
+            <Typography type="Paragraph" color={COLORS.white}>
+              {review.movieTitle}
             </Typography>
-          </TouchableOpacity>
-        </CommentSection>
-        <ImageItem source={review.movieBanner} />
-      </ReviewRow>
-    </Container>
+            <Typography type="Small paragraph" color={COLORS.green}>
+              {review.reviewBy}
+            </Typography>
+            <Typography
+              type="Small paragraph"
+              color={COLORS.white}
+              textAlign="left"
+            >
+              {review.reviewText}
+            </Typography>
+            <TouchableOpacity>
+              <Typography type="Small paragraph" color={COLORS.primaryPurple}>
+                Read more
+              </Typography>
+            </TouchableOpacity>
+          </CommentSection>
+          <ImageItem source={review.movieBanner} />
+        </ReviewRow>
+      </Container>
+    </TouchableOpacity>
   );
 };
 

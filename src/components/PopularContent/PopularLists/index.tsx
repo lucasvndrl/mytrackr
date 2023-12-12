@@ -8,7 +8,7 @@ import {
   TitleContainer,
 } from "./styles";
 import Typography from "../../Typography";
-import { COLORS } from "../../../constants/theme";
+import { COLORS, SIZES } from "../../../constants/theme";
 import { Image } from "react-native";
 
 const PopularLists = () => {
@@ -22,39 +22,51 @@ const PopularLists = () => {
       <PopularList>
         <ListSection>
           <ImageCover>
-            <ImageItem source={movie4} rightValue={0} />
-            <ImageItem source={movie4} rightValue={10} />
-            <ImageItem source={movie4} rightValue={20} />
-            <ImageItem source={movie4} rightValue={30} />
-            <ImageItem source={movie4} rightValue={40} />
-          </ImageCover>
-          <Typography type="Menu Title" color={COLORS.white} textAlign="left">
-            Super hero movies
-          </Typography>
-        </ListSection>
-        <ListSection>
-          <ImageCover>
-            <ImageItem source={movie4} rightValue={0} />
-            <ImageItem source={movie4} rightValue={10} />
-            <ImageItem source={movie4} rightValue={20} />
-            <ImageItem source={movie4} rightValue={30} />
-            <ImageItem source={movie4} rightValue={40} />
-          </ImageCover>
-          <Typography type="Menu Title" color={COLORS.white} textAlign="left">
-            Super hero movies
-          </Typography>
-        </ListSection>
-        <ListSection>
-          <ImageCover>
-            <ImageItem source={movie4} rightValue={0} />
-            <ImageItem source={movie4} rightValue={10} />
-            <ImageItem source={movie4} rightValue={20} />
-            <ImageItem source={movie4} rightValue={30} />
-            <ImageItem source={movie4} rightValue={40} />
+            <ImageItem source={movie4} rightValue={15} />
+            <ImageItem source={movie4} rightValue={25} />
+            <ImageItem source={movie4} rightValue={35} />
+            <ImageItem source={movie4} rightValue={45} />
+            <ImageItem source={movie4} rightValue={55} />
           </ImageCover>
           <TitleContainer>
             <Typography
-              type="Menu Title"
+              fontSize={SIZES.medium}
+              color={COLORS.white}
+              textAlign="left"
+            >
+              Super hero movies
+            </Typography>
+          </TitleContainer>
+        </ListSection>
+        <ListSection>
+          <ImageCover>
+            <ImageItem source={movie4} rightValue={15} />
+            <ImageItem source={movie4} rightValue={25} />
+            <ImageItem source={movie4} rightValue={35} />
+            <ImageItem source={movie4} rightValue={45} />
+            <ImageItem source={movie4} rightValue={55} />
+          </ImageCover>
+          <TitleContainer>
+            <Typography
+              fontSize={SIZES.medium}
+              color={COLORS.white}
+              textAlign="left"
+            >
+              Super hero movies
+            </Typography>
+          </TitleContainer>
+        </ListSection>
+        <ListSection>
+          <ImageCover>
+            <ImageItem source={movie4} rightValue={15} />
+            <ImageItem source={movie4} rightValue={25} />
+            <ImageItem source={movie4} rightValue={35} />
+            <ImageItem source={movie4} rightValue={45} />
+            <ImageItem source={movie4} rightValue={55} />
+          </ImageCover>
+          <TitleContainer>
+            <Typography
+              fontSize={SIZES.medium}
               color={COLORS.white}
               textAlign="left"
             >

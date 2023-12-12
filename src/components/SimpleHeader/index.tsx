@@ -8,6 +8,7 @@ import { COLORS } from "../../constants/theme";
 type SimpleHeaderProps = {
   onPress: () => void;
   closeIcon?: boolean;
+  userIcon?: boolean;
   options?: { title?: string };
   route?: { params?: { title?: string } };
 };
@@ -17,12 +18,14 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({
   closeIcon,
   options,
   route,
+  userIcon,
 }) => {
   const title = route?.params?.title || options?.title || " ";
   const insets = useSafeAreaInsets();
   const hamburguerMenu = require("../../assets/icons/hamburguerMenu.png");
   const icon = require("../../assets/icons/back.png");
   const user = require("../../assets/icons/user.png");
+  const back = require("../../assets/icons/back.png");
   return (
     <View
       style={{
@@ -40,7 +43,7 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({
         <Button onPress={onPress}>
           {closeIcon ? (
             <Image
-              source={icon}
+              source={back}
               style={{
                 width: 30,
                 height: 30,
@@ -61,19 +64,23 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({
         {/* For align header */}
       </RowTextIcon>
 
-      <View
-        style={{
-          marginRight: 5,
-        }}
-      >
-        <Image
-          source={user}
+      {userIcon ? (
+        <></>
+      ) : (
+        <View
           style={{
-            width: 30,
-            height: 30,
+            marginRight: 5,
           }}
-        />
-      </View>
+        >
+          <Image
+            source={user}
+            style={{
+              width: 30,
+              height: 30,
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 };

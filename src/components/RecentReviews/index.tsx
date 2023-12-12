@@ -12,16 +12,17 @@ interface ReviewList {
 const RecentReviews = ({ reviews }: ReviewList) => {
   return (
     <Container>
-      <Typography type="Paragraph" color={COLORS.background}>
+      <Typography type="Paragraph" color={COLORS.white}>
         Recent Friend's Review
       </Typography>
-      {reviews.map((review) => (
+      {reviews.map((review, index) => (
         <Review
           movieBanner={review.movieBanner}
           movieTitle={review.movieTitle}
           reviewBy={review.reviewBy}
           reviewText={review.reviewText}
           userIcon={review.userIcon}
+          key={index}
         />
       ))}
     </Container>

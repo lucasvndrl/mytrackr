@@ -9,15 +9,12 @@ export const Container = styled.View`
 export const PopularList = styled.View`
   flex-direction: row;
   padding: 5px;
-  justify-content: space-evenly;
+  justify-content: space-between;
   elevation: 10;
 `;
 
 export const ListSection = styled.View`
-  width: 100px;
   background-color: ${COLORS.background};
-  border-radius: 10px;
-  justify-content: space-between;
   flex-direction: column;
 `;
 

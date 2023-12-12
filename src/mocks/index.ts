@@ -1,3 +1,4 @@
-import { reviews } from "./ReviewMocks"
+import { reviews } from "./ReviewMocks";
+import { movies } from "./MoviesMock";
 
-export default { reviews }
+export default { reviews, movies };

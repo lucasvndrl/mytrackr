@@ -5,4 +5,5 @@ type HeaderOptions = {
 type ScreenParamList = {
   Login: undefined;
   Homepage: undefined;
+  ReviewDetail: undefined;
 };
