@@ -1,4 +1,4 @@
 import { reviews } from "./ReviewMocks";
 import { movies } from "./MoviesMock";
-
-export default { reviews, movies };
+import { cast } from "./DetailMock";
+export default { reviews, movies, cast };

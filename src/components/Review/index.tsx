@@ -12,8 +12,14 @@ import { COLORS } from "../../constants/theme";
 import { Image, TouchableOpacity } from "react-native";
 import { ReviewType } from "../../types/Review";
 import { useNavigation } from "@react-navigation/native";
+import Spacing from "../Spacing";
 
-const Review = (review: ReviewType) => {
+interface ReviewProps {
+  review: ReviewType;
+  showFullInfo?: boolean;
+}
+
+const Review = ({ review, showFullInfo }: ReviewProps) => {
   const navigate = useNavigation();
 
   return (
@@ -30,9 +36,13 @@ const Review = (review: ReviewType) => {
             <ProfileIcon source={review.userIcon} />
           </ProfilePictureRow>
           <CommentSection>
-            <Typography type="Paragraph" color={COLORS.white}>
-              {review.movieTitle}
-            </Typography>
+            {showFullInfo == true ? (
+              <Typography type="Paragraph" color={COLORS.white}>
+                {review.movieTitle}
+              </Typography>
+            ) : (
+              <Spacing height={5} />
+            )}
             <Typography type="Small paragraph" color={COLORS.green}>
               {review.reviewBy}
             </Typography>
@@ -49,7 +59,11 @@ const Review = (review: ReviewType) => {
               </Typography>
             </TouchableOpacity>
           </CommentSection>
-          <ImageItem source={review.movieBanner} />
+          {showFullInfo == true ? (
+            <ImageItem source={review.movieBanner} />
+          ) : (
+            <Spacing width={30} />
+          )}
         </ReviewRow>
       </Container>
     </TouchableOpacity>

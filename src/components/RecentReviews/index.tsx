@@ -16,14 +16,7 @@ const RecentReviews = ({ reviews }: ReviewList) => {
         Recent Friend's Review
       </Typography>
       {reviews.map((review, index) => (
-        <Review
-          movieBanner={review.movieBanner}
-          movieTitle={review.movieTitle}
-          reviewBy={review.reviewBy}
-          reviewText={review.reviewText}
-          userIcon={review.userIcon}
-          key={index}
-        />
+        <Review review={review} showFullInfo={true} key={index} />
       ))}
     </Container>
   );

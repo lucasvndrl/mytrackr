@@ -16,6 +16,7 @@ const SIZES = {
   medium: 13,
   large: 18,
   xLarge: 24,
+  xxLarge: 30,
 };
 
 export { COLORS, SIZES };

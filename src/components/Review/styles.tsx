@@ -5,7 +5,6 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 export const Container = styled.View`
   background-color: ${COLORS.background};
   width: 100%;
-  padding: ${RFValue(10)}px;
 `;
 
 export const ReviewRow = styled.View`
@@ -14,6 +13,7 @@ export const ReviewRow = styled.View`
   border-radius: 10px;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: ${RFValue(10)}px;
 `;
 
 export const ImageItem = styled.Image`

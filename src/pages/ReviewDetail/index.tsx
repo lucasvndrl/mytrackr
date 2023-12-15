@@ -1,133 +1,73 @@
 import React from "react";
-import { Image, View } from "react-native";
-import Typography from "../../components/Typography";
-import { ReviewType } from "../../types/Review";
-import { useNavigation } from "@react-navigation/native";
-import { COLORS, SIZES } from "../../constants/theme";
 import {
   Container,
-  DirectorContainer,
-  HeaderView,
+  ContentContainer,
   ImageBanner,
+  ImageBannerContainer,
   ImageItem,
-  LeftContainer,
-  MovieTitleContainer,
-  OptionButton,
-  RightContainer,
-  Spacing,
-  StatsContainer,
-  SummaryContainer,
+  LikeItem,
+  LikesRow,
+  MovieCoverContainer,
+  MovieTitleRow,
+  ProfileIcon,
+  ProfileName,
+  ReviewContainer,
+  StarsRow,
 } from "./styles";
-import StatsIcon from "../../components/Icons/StatsIcon";
+import Typography from "../../components/Typography";
+import { useNavigation } from "@react-navigation/native";
+import { SIZES } from "../../constants/theme";
+import { Image } from "react-native";
+import Star from "../../components/Star";
+import Spacing from "../../components/Spacing";
+import { LineItem } from "../../components/Line/styles";
 
-const ReviewDetail = ({ route }: any) => {
-  const review: ReviewType = route.params.review;
-  const movieBanner = require("../../assets/images/batmanBanner.png");
+const ReviewDetail = () => {
   return (
     <Container>
-      <ImageBanner source={movieBanner} />
-      <HeaderView>
-        <LeftContainer>
-          <ImageItem source={review.movieBanner} />
-          <StatsContainer>
-            <StatsIcon
-              image={require("../../assets/icons/eye.png")}
-              stats="40k"
-            />
-            <StatsIcon
-              image={require("../../assets/icons/heart.png")}
-              stats="30k"
-            />
-            <StatsIcon
-              image={require("../../assets/icons/list-check.png")}
-              stats="10k"
-            />
-          </StatsContainer>
-          <OptionButton>
-            <Image
-              source={require("../../assets/icons/review-icon.png")}
-              style={{ width: 12, height: 12, marginRight: 5, marginLeft: 10 }}
-            />
-            <Typography
-              fontSize={SIZES.medium}
-              fontWeight="Semibold"
-              color="black"
-            >
-              Rate or review
+      <ReviewContainer>
+        <ContentContainer>
+          <ProfileName>
+            <ProfileIcon source={require("../../assets/images/batman.png")} />
+            <Typography fontSize={SIZES.small}>Nome do usuário</Typography>
+          </ProfileName>
+          <MovieTitleRow>
+            <Typography fontSize={SIZES.large} fontWeight="Bold">
+              Título do filme
             </Typography>
-          </OptionButton>
-          <OptionButton>
-            <Image
-              source={require("../../assets/icons/bookmark.png")}
-              style={{ width: 12, height: 12, marginRight: 5, marginLeft: 10 }}
-            />
-            <Typography
-              fontSize={SIZES.medium}
-              fontWeight="Semibold"
-              color="black"
-            >
-              Add to list
-            </Typography>
-          </OptionButton>
-          <OptionButton>
-            <Image
-              source={require("../../assets/icons/play-alt.png")}
-              style={{ width: 12, height: 12, marginRight: 5, marginLeft: 10 }}
-            />
-            <Typography
-              fontSize={SIZES.medium}
-              fontWeight="Semibold"
-              color="black"
-            >
-              Add to watchlist
-            </Typography>
-          </OptionButton>
-        </LeftContainer>
-        <RightContainer>
-          <MovieTitleContainer>
-            <Typography
-              color={COLORS.white}
-              fontSize={SIZES.large}
-              fontWeight="Bold"
-            >
-              The Batman
-            </Typography>
-            <Typography
-              color={COLORS.white}
-              fontSize={SIZES.medium}
-              fontWeight="Semibold"
-            >
-              2022
-            </Typography>
-            <Typography
-              color={COLORS.white}
-              fontSize={SIZES.small}
-              fontWeight="Semibold"
-            >
-              176mins
-            </Typography>
-          </MovieTitleContainer>
-          <DirectorContainer>
-            <Typography fontSize={SIZES.small} fontWeight="Semibold">
-              Directed by
-            </Typography>
-            <Spacing />
+          </MovieTitleRow>
+          <StarsRow>
+            <Star />
+            <Star />
+            <Star />
+            <Star />
+            <Star />
+          </StarsRow>
+          <Spacing height={5} />
+          <Typography fontSize={SIZES.small}>
+            Watched 23 de novembro de 2023
+          </Typography>
+          <Spacing height={5} />
+          <Typography fontSize={SIZES.medium} lineHeight={12}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s.
+          </Typography>
+          <LikesRow>
+            <LikeItem source={require("../../assets/icons/hollow-heart.png")} />
             <Typography fontSize={SIZES.small} fontWeight="Bold">
-              Matt Reeves
+              LIKES ?
             </Typography>
-          </DirectorContainer>
-          <SummaryContainer>
-            <Typography fontSize={SIZES.small} fontWeight="Regular">
-              UNMASK THE TRUTH.
-            </Typography>
-            <Typography fontSize={SIZES.small} lineHeight={15}>
-              In his second year of fighting crime, Batman uncovers corruption
-              in Gotham City that connects to his own family while facing a
-              serial killer known as the Riddler.
-            </Typography>
-          </SummaryContainer>
-        </RightContainer>
-      </HeaderView>
+            <Spacing width={5} />
+            <Typography fontSize={SIZES.small}>5.280 likes</Typography>
+          </LikesRow>
+        </ContentContainer>
+        <MovieCoverContainer>
+          <ImageItem source={require("../../assets/images/batman.png")} />
+        </MovieCoverContainer>
+      </ReviewContainer>
+      <Spacing height={10} />
+      <LineItem />
     </Container>
   );
 };

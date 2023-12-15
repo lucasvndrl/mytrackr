@@ -7,8 +7,8 @@ import { useAuth } from "../hooks/Auth";
 import Login from "../pages/Login";
 import ScreenHeader from "../components/ScreenHeader";
 import Homepage from "../pages/Homepage";
+import MovieDetail from "../pages/MovieDetail";
 import ReviewDetail from "../pages/ReviewDetail";
-import { ReviewType } from "../types/Review";
 const Stack = createNativeStackNavigator<ScreenParamList>();
 
 interface AppRoutesProps {
@@ -52,8 +52,8 @@ const CustomStackNavigation = ({
             }}
           />
           <Screen
-            name="ReviewDetail"
-            component={ReviewDetail}
+            name="MovieDetail"
+            component={MovieDetail}
             options={{
               headerShown: false,
               header: (props: any) => (
@@ -66,6 +66,23 @@ const CustomStackNavigation = ({
               ),
               navigationBarColor: "transparent",
               statusBarColor: "transparent",
+            }}
+          />
+          <Screen
+            name="ReviewDetail"
+            component={ReviewDetail}
+            options={{
+              headerShown: true,
+              header: (props: any) => (
+                <SimpleHeader
+                  {...props}
+                  closeIcon={true}
+                  userIcon={true}
+                  onPress={() => props.navigation.pop()}
+                />
+              ),
+              navigationBarColor: COLORS.background,
+              statusBarColor: COLORS.background,
             }}
           />
         </>
