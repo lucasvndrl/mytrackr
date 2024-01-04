@@ -1,11 +1,12 @@
 type HeaderOptions = {
-  title?: string;
-};
+  title?: string
+}
 
 type ScreenParamList = {
-  Login: undefined;
-  Homepage: undefined;
-  ReviewDetail: undefined;
-  MovieDetail: undefined;
-  ListDetail: undefined;
-};
+  Login: undefined
+  Homepage: undefined
+  ReviewDetail: undefined
+  MovieDetail: undefined
+  ListDetail: undefined
+  Land: undefined
+}
