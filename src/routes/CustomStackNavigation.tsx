@@ -10,6 +10,7 @@ import Homepage from '../pages/Homepage'
 import MovieDetail from '../pages/MovieDetail'
 import ReviewDetail from '../pages/ReviewDetail'
 import LandPage from '../pages/LandPage'
+import { useAuth0 } from 'react-native-auth0'
 const Stack = createNativeStackNavigator<ScreenParamList>()
 
 interface AppRoutesProps {
@@ -20,8 +21,11 @@ interface AppRoutesProps {
 const CustomStackNavigation = ({ initialRouteName, initialParams }: AppRoutesProps) => {
   const { Navigator, Screen, Group } = Stack
   const { authUser } = useAuth()
+  const { user } = useAuth0()
+
+  const loggedIn = user !== undefined && user !== null
   const screens = useMemo(() => {
-    if (!authUser.logged) {
+    if (!loggedIn) {
       return (
         <>
           <Screen

@@ -8,11 +8,18 @@ import {
   MessageContainer,
 } from './styles'
 import Typography from '../../components/Typography'
-import { useAuth } from '../../hooks/Auth'
-import { useNavigation } from '@react-navigation/native'
+import { useAuth0 } from 'react-native-auth0'
 
 const Login = () => {
-  const navigation = useNavigation()
+  const { authorize } = useAuth0()
+
+  const onLogin = async () => {
+    try {
+      await authorize()
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <Container>
@@ -28,7 +35,7 @@ const Login = () => {
             Please sign in to continue.
           </Typography>
         </MessageContainer>
-        <ActionButton onPress={() => navigation.navigate('Login' as never)}>
+        <ActionButton onPress={onLogin}>
           <Typography type='Button Title'>Login</Typography>
         </ActionButton>
       </ButtonContainer>

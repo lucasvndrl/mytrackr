@@ -19,7 +19,7 @@ const LandPage = () => {
   return (
     <Container>
       <ImageBanner>
-        <ImageCover source={require('../../assets/images/oppenheimer.png')} blurRadius={0.5} />
+        <ImageCover source={require('../../assets/images/batman.png')} blurRadius={0.5} />
         <TitleContainer>
           <Typography type='App Title'>mytrackr</Typography>
         </TitleContainer>

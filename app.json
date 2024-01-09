@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#1F1D36"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -21,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mytrackr"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,6 +29,14 @@
       "eas": {
         "projectId": "5d2b29b6-dac7-4b2d-8cfb-f50362170f49"
       }
-    }
+    },
+    "plugins": [
+      [
+        "react-native-auth0",
+        {
+          "domain": "dev-3e4c7c585pp5uhrt.us.auth0.com"
+        }
+      ]
+    ]
   }
 }
