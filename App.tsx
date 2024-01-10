@@ -23,6 +23,7 @@ export default function App() {
     const prepare = async () => {
       try {
         await fetchFonts() // Aguarde o carregamento das fontes
+        // TODO - remover timeout
         await new Promise((resolve) => setTimeout(resolve, 2000)) // Aguarde 2000ms
       } catch (e) {
         console.error(e)
@@ -40,6 +41,7 @@ export default function App() {
   if (!fontsLoaded) return null
 
   return (
+    //TODO - configurar dotenv
     <Auth0Provider
       domain='dev-3e4c7c585pp5uhrt.us.auth0.com'
       clientId='FAIwkqSImAmlhoJQPBPDygxhEQyspdnx'
