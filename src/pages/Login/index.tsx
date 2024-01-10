@@ -1,5 +1,4 @@
-import React from 'react'
-import { Image, View } from 'react-native'
+import React, { useState } from 'react'
 import {
   ButtonContainer,
   Container,
@@ -9,36 +8,50 @@ import {
 } from './styles'
 import Typography from '../../components/Typography'
 import { useAuth0 } from 'react-native-auth0'
+import Loading from '../../components/Loading'
 
 const Login = () => {
-  const { authorize } = useAuth0()
+  const { authorize, error } = useAuth0()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const onLogin = async () => {
     try {
+      setIsLoading(true)
       await authorize()
     } catch (e) {
+      setIsLoading(false)
       console.log(e)
     }
   }
 
+  if (error) {
+    setIsLoading(false)
+  }
+
   return (
     <Container>
-      <TitleContainer>
-        <Typography type='App Title'>mytrackr</Typography>
-      </TitleContainer>
-      <ButtonContainer>
-        {/* <Typography type='Heading 2' textAlign='center'>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <TitleContainer>
+            <Typography type='App Title'>mytrackr</Typography>
+          </TitleContainer>
+          <ButtonContainer>
+            {/* <Typography type='Heading 2' textAlign='center'>
           Login
         </Typography> */}
-        <MessageContainer>
-          <Typography type='Lead Paragraph' textAlign='center'>
-            Please sign in to continue.
-          </Typography>
-        </MessageContainer>
-        <ActionButton onPress={onLogin}>
-          <Typography type='Button Title'>Login</Typography>
-        </ActionButton>
-      </ButtonContainer>
+            <MessageContainer>
+              <Typography type='Lead Paragraph' textAlign='center'>
+                Please sign in to continue.
+              </Typography>
+            </MessageContainer>
+            <ActionButton onPress={onLogin}>
+              <Typography type='Button Title'>Login</Typography>
+            </ActionButton>
+          </ButtonContainer>
+        </>
+      )}
     </Container>
   )
 }

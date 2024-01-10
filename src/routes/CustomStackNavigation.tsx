@@ -1,7 +1,6 @@
 import React, { useMemo, useRef } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SimpleHeader from '../components/SimpleHeader'
-import { Alert, Image, StatusBar } from 'react-native'
 import { COLORS } from '../constants/theme'
 import { useAuth } from '../hooks/Auth'
 import Login from '../pages/Login'
@@ -98,7 +97,7 @@ const CustomStackNavigation = ({ initialRouteName, initialParams }: AppRoutesPro
         </>
       )
     }
-  }, [authUser.logged])
+  }, [user])
 
   return (
     <>
