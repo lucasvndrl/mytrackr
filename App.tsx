@@ -45,6 +45,7 @@ export default function App() {
     <Auth0Provider
       domain='dev-3e4c7c585pp5uhrt.us.auth0.com'
       clientId='FAIwkqSImAmlhoJQPBPDygxhEQyspdnx'
+  
     >
       <AuthProvider>
         <Routes initialRouteName='Homepage' />

@@ -17,7 +17,10 @@ const Login = () => {
   const onLogin = async () => {
     try {
       setIsLoading(true)
-      await authorize()
+      await authorize({
+        scope: 'openid profile email',
+        audience: 'https://mytrackr-api/'
+      })
     } catch (e) {
       setIsLoading(false)
       console.log(e)

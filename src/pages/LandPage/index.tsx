@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native'
 
 const LandPage = () => {
   const navigation = useNavigation()
-
+  
   return (
     <Container>
       <ImageBanner>
