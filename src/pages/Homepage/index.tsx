@@ -9,27 +9,17 @@ import RecentReviews from '../../components/RecentReviews'
 import { reviews } from '../../mocks/ReviewMocks'
 import { useAuth0 } from 'react-native-auth0'
 import axios from 'axios'
-
+import { useAuth } from '../../hooks/Auth'
 const Homepage = () => {
-  const { getCredentials, clearSession } = useAuth0()
-
+  const { getCredentials, user, clearSession, authorize } = useAuth0()
+  const { login } = useAuth()
   useEffect(() => {
-    console.log('oiiiii')
+    // clearSession()
     const creds = async () => {
-      console.log('oiii')
-      await getCredentials().then((res) => {
-        console.log(res?.accessToken)
-        console.log(res?.idToken)
-        axios
-          .get('https://f395-177-121-125-0.ngrok-free.app/authorized', {
-            headers: {
-              'content-type': 'application/x-www-form-urlencoded',
-              Authorization: 'Bearer ' + res?.accessToken,
-            },
-          })
-          .then((res) => {
-            console.log('SE FUNCIONAR FUNCIONOU!!!', res)
-          })
+      await getCredentials().then((res: any) => {
+        console.log(res.accessToken)
+        console.log(res.scope)
+        return res?.accessToken
       })
     }
     creds()

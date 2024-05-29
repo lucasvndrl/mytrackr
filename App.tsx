@@ -3,7 +3,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import { useEffect, useState } from 'react'
 import { AuthProvider } from './src/hooks/Auth'
 import { Routes } from './src/routes'
-import { useAuth0, Auth0Provider } from 'react-native-auth0'
+import { Auth0Provider } from 'react-native-auth0'
 const fetchFonts = async () => {
   await Font.loadAsync({
     OpenSansLight: require('./src/assets/fonts/OpenSans_Condensed-Light.ttf'),
@@ -45,7 +45,6 @@ export default function App() {
     <Auth0Provider
       domain='dev-3e4c7c585pp5uhrt.us.auth0.com'
       clientId='FAIwkqSImAmlhoJQPBPDygxhEQyspdnx'
-  
     >
       <AuthProvider>
         <Routes initialRouteName='Homepage' />

@@ -10,6 +10,7 @@ import MovieDetail from '../pages/MovieDetail'
 import ReviewDetail from '../pages/ReviewDetail'
 import LandPage from '../pages/LandPage'
 import { useAuth0 } from 'react-native-auth0'
+import Register from '../pages/Register'
 const Stack = createNativeStackNavigator<ScreenParamList>()
 
 interface AppRoutesProps {
@@ -23,10 +24,18 @@ const CustomStackNavigation = ({ initialRouteName, initialParams }: AppRoutesPro
   const { user } = useAuth0()
 
   const loggedIn = user !== undefined && user !== null
+  // const loggedIn = authUser.logged
   const screens = useMemo(() => {
     if (!loggedIn) {
       return (
         <>
+          <Screen
+            name='Register'
+            component={Register}
+            options={{
+              headerShown: false,
+            }}
+          />
           <Screen
             name='Land'
             component={LandPage}

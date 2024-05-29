@@ -36,6 +36,12 @@
         {
           "domain": "dev-3e4c7c585pp5uhrt.us.auth0.com"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
       ]
     ]
   }

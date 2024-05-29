@@ -9,4 +9,5 @@ type ScreenParamList = {
   MovieDetail: undefined
   ListDetail: undefined
   Land: undefined
+  Register: undefined
 }

@@ -9,17 +9,19 @@ import {
 import Typography from '../../components/Typography'
 import { useAuth0 } from 'react-native-auth0'
 import Loading from '../../components/Loading'
+import { useAuth } from '../../hooks/Auth'
 
 const Login = () => {
   const { authorize, error } = useAuth0()
+  const { login } = useAuth()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const onLogin = async () => {
     try {
       setIsLoading(true)
       await authorize({
-        scope: 'openid profile email',
-        audience: 'https://mytrackr-api/'
+        scope: 'delete:current_user',
+        audience: 'https://mytrackr-api/',
       })
     } catch (e) {
       setIsLoading(false)
