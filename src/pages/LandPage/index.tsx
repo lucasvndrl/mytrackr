@@ -1,21 +1,20 @@
-import React from 'react'
-import { Image, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useState } from 'react'
+import Typography from '../../components/Typography'
 import {
+  ActionButton,
   ButtonContainer,
   Container,
-  ActionButton,
   ImageBanner,
   ImageCover,
-  TitleContainer,
   MessageContainer,
+  TitleContainer,
 } from './styles'
-import Typography from '../../components/Typography'
-import { useAuth } from '../../hooks/Auth'
-import { useNavigation } from '@react-navigation/native'
+import CustomModal from '../../components/CustomModal'
 
 const LandPage = () => {
   const navigation = useNavigation()
-  
+
   return (
     <Container>
       <ImageBanner>

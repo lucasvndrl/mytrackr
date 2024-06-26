@@ -1,39 +1,42 @@
-import React from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { useWindowDimensions } from "react-native";
-import { useAuth } from "../hooks/Auth";
-import CustomStackNavigation from "./CustomStackNavigation";
+import React from 'react'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { useWindowDimensions } from 'react-native'
+import { useAuth } from '../hooks/Auth'
+import CustomStackNavigation from './CustomStackNavigation'
+import { COLORS } from '../constants/theme'
+import CustomDrawerContent from '../components/CustomDrawerContent/CustomDrawerContent'
+import Homepage from '../pages/Homepage'
 
 interface AppRoutesProps {
-  initialRouteName?: keyof ScreenParamList;
-  initialParams?: Record<string, unknown>;
+  initialRouteName?: keyof ScreenParamList
+  initialParams?: Record<string, unknown>
 }
 
-const Drawer = createDrawerNavigator();
-const { Navigator, Screen } = Drawer;
+const Drawer = createDrawerNavigator()
+const { Navigator, Screen } = Drawer
 
-export const AppRoutes = ({
-  initialRouteName,
-  initialParams,
-}: AppRoutesProps) => {
-  const dimensions = useWindowDimensions();
-  const { authUser } = useAuth();
+export const AppRoutes = ({ initialRouteName, initialParams }: AppRoutesProps) => {
+  const dimensions = useWindowDimensions()
+  const { authUser } = useAuth()
 
   return (
     <>
       <Navigator
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
           headerShown: false,
-          drawerPosition: "left",
-          drawerType: "front",
+          drawerPosition: 'left',
+          drawerType: 'front',
           drawerStyle: {
             width: dimensions.width,
+            backgroundColor: COLORS.background,
+            justifyContent: 'space-between',
           },
           swipeEnabled: authUser.logged,
         }}
-        backBehavior="history"
+        backBehavior='history'
       >
-        <Screen name="Tela inicial">
+        <Screen name='Tela inicial'>
           {(props) => (
             <CustomStackNavigation
               {...props}
@@ -44,5 +47,5 @@ export const AppRoutes = ({
         </Screen>
       </Navigator>
     </>
-  );
-};
+  )
+}

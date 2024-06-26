@@ -1,36 +1,45 @@
 import React, { useEffect } from 'react'
-import { ScrollView, View } from 'react-native'
-import Typography from '../../components/Typography'
-import { Container, TitleContainer } from './styles'
-import { COLORS } from '../../constants/theme'
-import PopularMovies from '../../components/PopularContent/PopularMovies'
+import { ScrollView, ToastAndroid } from 'react-native'
 import PopularLists from '../../components/PopularContent/PopularLists'
+import PopularMovies from '../../components/PopularContent/PopularMovies'
 import RecentReviews from '../../components/RecentReviews'
-import { reviews } from '../../mocks/ReviewMocks'
-import { useAuth0 } from 'react-native-auth0'
-import axios from 'axios'
+import Typography from '../../components/Typography'
+import { COLORS } from '../../constants/theme'
 import { useAuth } from '../../hooks/Auth'
+import { reviews } from '../../mocks/ReviewMocks'
+import { Container, TitleContainer } from './styles'
+import { useNavigation } from '@react-navigation/native'
+import { useAuth0 } from 'react-native-auth0'
+import { messages } from '../../constants/messages'
 const Homepage = () => {
-  const { getCredentials, user, clearSession, authorize } = useAuth0()
-  const { login } = useAuth()
+  const { authUser } = useAuth()
+  const { getCredentials } = useAuth0()
+  const { navigate } = useNavigation()
+
   useEffect(() => {
-    // clearSession()
-    const creds = async () => {
-      await getCredentials().then((res: any) => {
-        console.log(res.accessToken)
-        console.log(res.scope)
-        return res?.accessToken
-      })
+    if (authUser.logged === false) {
+      navigate('CheckCredentials' as never)
+    } else {
+      showToastLoggedIn()
     }
-    creds()
   }, [])
+
+  const showToastLoggedIn = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      messages.toast_user_logged_in,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    )
+  }
   return (
     <>
       <Container>
         <ScrollView>
           <TitleContainer>
             <Typography type='Heading 1' color={COLORS.white}>
-              Hello, MALDONADO! 👋
+              Hello, {authUser.login ? authUser.login : 'YOU'}! 👋
             </Typography>
             <Typography type='Small paragraph' color={COLORS.white}>
               Welcome to MyTrackr!

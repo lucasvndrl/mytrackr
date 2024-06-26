@@ -13,9 +13,6 @@ const schema = z.object({
   username: z.string().min(5).max(20, {
     message: 'Username must be between 5 and 20 characters',
   }),
-  email: z.string().email({
-    message: 'Invalid email address',
-  }),
   favorite_genres: z
     .array(itemPropsSchema)
     .refine((value) => value.some((genre) => genre.selected), {
@@ -31,7 +28,6 @@ export const getUserFormDefaultValues = (user?: Partial<User>): Partial<UserForm
   return {
     avatar: user?.avatar ?? '',
     username: user?.username ?? '',
-    email: user?.email ?? '',
     favorite_genres: user?.favorites_genres ?? defaultGenresValues,
   } as UserFormData
 }

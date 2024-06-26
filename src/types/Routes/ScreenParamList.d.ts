@@ -10,4 +10,6 @@ type ScreenParamList = {
   ListDetail: undefined
   Land: undefined
   Register: undefined
+  Profile: undefined
+  CheckCredentials: undefined
 }

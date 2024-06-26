@@ -16,7 +16,6 @@ const Form = ({ form }: RegisterUserForm) => {
       <Container>
         <Avatar form={form} name='avatar' />
         <TextInput form={form} label='Username' name='username' />
-        <TextInput form={form} label='Email' name='email' />
         <MultiSelect form={form} name='favorite_genres' />
       </Container>
     </>

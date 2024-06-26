@@ -1,8 +1,11 @@
+import { RegisterUserProps } from '../services/userService'
+
 type AuthUser = {
   login: string
-  password: string
   logged: boolean
   userId: string
+  email: string
+  avatar?: string
 }
 
 type AuthUserLoginProps = {
@@ -13,7 +16,9 @@ type AuthUserLoginProps = {
 type AuthContextData = {
   authUser: AuthUser
   loading: boolean
-  login: () => Promise<void>
+  handleLogin: () => Promise<void>
+  handleRegister: ({}: RegisterUserProps) => Promise<void>
+  setAuthUser: ({}: AuthUser) => void
 }
 
 type UseAuth = () => AuthContextData
@@ -24,4 +29,10 @@ type AccountTable = {
   email: string
   created_at: Date
   last_login: Date
+  favorite_genres: string[]
+  avatar?: string
+}
+
+type AccountResponse = {
+  account: AccountTable
 }

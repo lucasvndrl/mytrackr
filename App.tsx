@@ -1,9 +1,10 @@
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect, useState } from 'react'
+import { Auth0Provider } from 'react-native-auth0'
 import { AuthProvider } from './src/hooks/Auth'
 import { Routes } from './src/routes'
-import { Auth0Provider } from 'react-native-auth0'
+import { PaperProvider } from 'react-native-paper'
 const fetchFonts = async () => {
   await Font.loadAsync({
     OpenSansLight: require('./src/assets/fonts/OpenSans_Condensed-Light.ttf'),
@@ -46,9 +47,11 @@ export default function App() {
       domain='dev-3e4c7c585pp5uhrt.us.auth0.com'
       clientId='FAIwkqSImAmlhoJQPBPDygxhEQyspdnx'
     >
-      <AuthProvider>
-        <Routes initialRouteName='Homepage' />
-      </AuthProvider>
+      <PaperProvider>
+        <AuthProvider>
+          <Routes initialRouteName='Land' />
+        </AuthProvider>
+      </PaperProvider>
     </Auth0Provider>
   )
 }

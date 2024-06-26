@@ -1,19 +1,22 @@
-import React, { useEffect, useMemo, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Typography from '../../components/Typography'
+import React, { useEffect, useMemo, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useAuth0 } from 'react-native-auth0'
 import Loading from '../../components/Loading'
-import { useAuth } from '../../hooks/Auth'
-import { ButtonContainer, Container, PageTitleContainer } from './styles'
-import { useForm } from 'react-hook-form'
-import { UserFormData, getUserFormDefaultValues, userFormSchema } from './Form/schema'
-import Form from './Form'
+import Typography from '../../components/Typography'
 import { COLORS } from '../../constants/theme'
-import { ActivityIndicator } from 'react-native'
+import { useAuth } from '../../hooks/Auth'
+import Form from './Form'
+import { UserFormData, getUserFormDefaultValues, userFormSchema } from './Form/schema'
+import { ButtonContainer, Container, PageTitleContainer } from './styles'
+import CustomModal from '../../components/CustomModal'
+import { messages } from '../../constants/messages'
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [image, setImage] = useState<string>()
+  const [showModal, setShowModal] = useState<boolean>(false)
+  const { handleRegister } = useAuth()
+  const { user, getCredentials } = useAuth0()
 
   const userFormDefaultValues = useMemo(() => getUserFormDefaultValues(), [])
 
@@ -22,9 +25,31 @@ const Register = () => {
     resolver: zodResolver(userFormSchema),
   })
 
-  const onSubmit = () => {
-    console.log(form.formState.errors)
+  const onSubmit = async () => {
+    setShowModal(false)
+    setIsLoading(true)
+    const token = await getCredentials().then((res) => res?.accessToken)
+    const registerData = form.getValues()
+    const favoriteGenresSelected = registerData.favorite_genres
+      .filter((genre) => genre.selected)
+      .map((genre) => genre.name)
+
+    await handleRegister({
+      avatar: registerData.avatar ? registerData.avatar : '',
+      email: user?.email ? user?.email : '',
+      username: registerData.username,
+      user_id: user?.sub ? user?.sub : '',
+      accessToken: token ? token : '',
+      created_at: new Date(),
+      last_login: new Date(),
+      favorite_genres: favoriteGenresSelected,
+    })
+    setIsLoading(false)
   }
+
+  useEffect(() => {
+    setShowModal(true)
+  }, [])
 
   return (
     <Container>
@@ -43,6 +68,14 @@ const Register = () => {
               Register
             </Typography>
           </ButtonContainer>
+          {showModal && (
+            <CustomModal
+              buttonMessage={messages.register_needed_button}
+              openModal={showModal}
+              message={messages.register_needed_msg}
+              title={messages.register_needed_title}
+            />
+          )}
         </>
       )}
     </Container>

@@ -13,7 +13,6 @@ export const ItemContainer = styled.TouchableOpacity<ItemContainerProps>`
   justify-content: center;
   height: ${RFValue(20)}px;
   border-style: ${(props) => (props.selected ? 'solid' : 'dashed')};
-  width: ${RFValue(50)}px;
-  margin-right: ${RFValue(10)}px;
+  padding-horizontal: ${RFValue(10)}px;
   background-color: ${(props) => (props.selected ? COLORS.secondaryBackground : COLORS.background)};
 `

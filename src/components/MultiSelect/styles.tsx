@@ -8,4 +8,7 @@ export const Container = styled.View`
   width: 100%;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: ${RFValue(10)}px;
 `

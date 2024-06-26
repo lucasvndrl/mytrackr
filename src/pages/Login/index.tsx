@@ -1,20 +1,22 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import {
-  ButtonContainer,
-  Container,
-  ActionButton,
-  TitleContainer,
-  MessageContainer,
-} from './styles'
-import Typography from '../../components/Typography'
 import { useAuth0 } from 'react-native-auth0'
 import Loading from '../../components/Loading'
+import Typography from '../../components/Typography'
 import { useAuth } from '../../hooks/Auth'
+import {
+  ActionButton,
+  ButtonContainer,
+  Container,
+  MessageContainer,
+  TitleContainer,
+} from './styles'
 
 const Login = () => {
   const { authorize, error } = useAuth0()
-  const { login } = useAuth()
+  const { handleLogin } = useAuth()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { navigate } = useNavigation()
 
   const onLogin = async () => {
     try {
@@ -23,6 +25,7 @@ const Login = () => {
         scope: 'delete:current_user',
         audience: 'https://mytrackr-api/',
       })
+      navigate('CheckCredentials' as never)
     } catch (e) {
       setIsLoading(false)
       console.log(e)
