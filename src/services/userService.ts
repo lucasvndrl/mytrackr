@@ -35,7 +35,7 @@ export const registerUser = async ({
   } as AccountTable
 
   const response = await axios.post(
-    'https://2d0b-187-46-129-29.ngrok-free.app/account',
+    'https://a0de-187-46-129-29.ngrok-free.app/account',
     {
       account,
     },
@@ -53,7 +53,7 @@ export const getUserDetails = async (
   accessToken: string,
 ): Promise<AxiosResponse<AccountResponse> | undefined> => {
   try {
-    const response = await axios.get('https://2d0b-187-46-129-29.ngrok-free.app/account', {
+    const response = await axios.get('https://a0de-187-46-129-29.ngrok-free.app/account', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -81,7 +81,7 @@ export const updateUserDetails = async (
   accessToken: string,
 ): Promise<AxiosResponse> => {
   const response = await axios.patch(
-    'https://2d0b-187-46-129-29.ngrok-free.app/account',
+    'https://a0de-187-46-129-29.ngrok-free.app/account',
     {
       account,
     },
@@ -96,7 +96,7 @@ export const updateUserDetails = async (
 }
 
 export const deleteUser = async (accessToken: string): Promise<AxiosResponse> => {
-  const response = await axios.delete('https://2d0b-187-46-129-29.ngrok-free.app/account', {
+  const response = await axios.delete('https://a0de-187-46-129-29.ngrok-free.app/account', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

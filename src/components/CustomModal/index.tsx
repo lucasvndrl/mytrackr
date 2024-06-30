@@ -25,7 +25,11 @@ const CustomModal = ({ title, message, openModal, buttonMessage, onCloseModal }:
 
   return (
     <Portal>
-      <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.containerModal}>
+      <Modal
+        visible={visible}
+        onDismiss={hideModal}
+        contentContainerStyle={styles.containerModal as any}
+      >
         <Typography type='Heading 2' color={COLORS.white}>
           {title}
         </Typography>
@@ -47,6 +51,8 @@ const styles = {
     margin: RFValue(20),
     borderRadius: RFValue(10),
     height: RFValue(250),
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 }
 
