@@ -11,6 +11,10 @@ interface TextInputProps<T extends FieldValues> {
   disabled?: boolean
   mask?: Mask
   keyboardType?: KeyboardTypeOptions
+  multiline?: boolean
+  maxLength?: number
+  numberOfLines?: number
+  placeholder?: string
 }
 
 const TextInput = <T extends FieldValues>({
@@ -20,6 +24,10 @@ const TextInput = <T extends FieldValues>({
   disabled,
   mask,
   keyboardType,
+  multiline,
+  maxLength,
+  numberOfLines,
+  placeholder,
 }: TextInputProps<T>) => {
   const {
     control,
@@ -40,6 +48,10 @@ const TextInput = <T extends FieldValues>({
             keyboardType={keyboardType}
             render={mask ? (props) => <MaskInput {...props} mask={mask} /> : undefined}
             disabled={disabled}
+            multiline={multiline}
+            maxLength={maxLength}
+            numberOfLines={numberOfLines}
+            placeholder={placeholder}
           />
           <HelperText type='error'>
             {getProperty<FieldError>(errors, name)?.message ?? ' '}

@@ -13,6 +13,8 @@ import Profile from '../pages/Profile'
 import Register from '../pages/Register'
 import ReviewDetail from '../pages/ReviewDetail'
 import CheckCredentials from '../pages/CheckCredentials'
+import WriteReview from '../pages/WriteReview'
+import ReviewsList from '../pages/ReviewsList'
 const Stack = createNativeStackNavigator<ScreenParamList>()
 
 interface AppRoutesProps {
@@ -27,7 +29,6 @@ const CustomStackNavigation = ({ initialRouteName, initialParams }: AppRoutesPro
 
   const loggedIn = user !== undefined && user !== null
   // const loggedIn = authUser.logged
-
   const screens = useMemo(() => {
     if (!loggedIn) {
       return (
@@ -103,6 +104,41 @@ const CustomStackNavigation = ({ initialRouteName, initialParams }: AppRoutesPro
           <Screen
             name='ReviewDetail'
             component={ReviewDetail}
+            options={{
+              headerShown: true,
+              header: (props: any) => (
+                <SimpleHeader
+                  {...props}
+                  closeIcon={true}
+                  userIcon={true}
+                  onPress={() => props.navigation.pop()}
+                />
+              ),
+              navigationBarColor: COLORS.background,
+              statusBarColor: COLORS.background,
+            }}
+          />
+          <Screen
+            name='WriteReview'
+            component={WriteReview}
+            options={{
+              headerShown: true,
+              header: (props: any) => (
+                <SimpleHeader
+                  {...props}
+                  closeIcon={true}
+                  userIcon={true}
+                  onPress={() => props.navigation.pop()}
+                  options={{ title: 'Write your review' }}
+                />
+              ),
+              navigationBarColor: COLORS.background,
+              statusBarColor: COLORS.background,
+            }}
+          />
+          <Screen
+            name='ReviewsList'
+            component={ReviewsList}
             options={{
               headerShown: true,
               header: (props: any) => (

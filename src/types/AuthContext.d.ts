@@ -32,7 +32,3 @@ type AccountTable = {
   favorite_genres: string[]
   avatar?: string
 }
-
-type AccountResponse = {
-  account: AccountTable
-}

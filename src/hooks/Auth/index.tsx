@@ -4,6 +4,7 @@ import { useAuth0 } from 'react-native-auth0'
 import { RegisterUserProps, getUserDetails, registerUser } from '../../services/userService'
 import * as RootNavigation from '../../routes/RootNavigation'
 import { AuthContextData, AuthUser, UseAuth } from '../../types/AuthContext'
+import { useMovies } from '../Movies'
 
 type AuthProviderProps = {
   children: ReactNode
@@ -18,15 +19,18 @@ export const AuthContext = createContext({
   setAuthUser: ({}: AuthUser) => {},
 } as AuthContextData)
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [authUser, setAuthUser] = useState<AuthUser>({
-    logged: false,
-    login: '',
-    userId: '',
-    email: '',
-  })
+const AuthProvider = ({ children, authUserState }: AuthProviderProps) => {
+  const [authUser, setAuthUser] = useState<AuthUser>(
+    authUserState || {
+      logged: false,
+      login: '',
+      userId: '',
+      email: '',
+    },
+  )
   const { getCredentials, user } = useAuth0()
   const [loading, setLoading] = useState(false)
+  const { getMovies } = useMovies()
 
   const handleLogin = async () => {
     RootNavigation.navigate('CheckCredentials')
@@ -37,12 +41,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const result = await getUserDetails(userToken)
 
     if (result?.status == 200) {
+      await getMovies(userToken)
       setAuthUser(() => ({
         logged: true,
-        login: result.data.account.username,
-        userId: result.data.account.user_id,
+        login: result.data.username,
+        userId: result.data.user_id,
         email: user?.email ? user?.email : '',
-        avatar: result.data.account.avatar ? result.data.account.avatar : '',
+        avatar: result.data.avatar ? result.data.avatar : '',
       }))
       RootNavigation.navigate('Homepage')
     } else {
@@ -76,10 +81,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       if (user !== undefined) {
         setAuthUser(() => ({
           logged: true,
-          login: user.data.account.username,
-          userId: user.data.account.user_id,
-          email: user.data.account.email,
-          avatar: user.data.account.avatar ? user.data.account.avatar : '',
+          login: user.data.username,
+          userId: user.data.user_id,
+          email: user.data.email,
+          avatar: user.data.avatar ? user.data.avatar : '',
         }))
         RootNavigation.navigate('Homepage')
       }

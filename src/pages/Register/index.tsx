@@ -49,7 +49,12 @@ const Register = () => {
 
   useEffect(() => {
     setShowModal(true)
+    printCreds()
   }, [])
+
+  const printCreds = async () => {
+    const token = await getCredentials().then((res) => res?.accessToken)
+  }
 
   return (
     <Container>

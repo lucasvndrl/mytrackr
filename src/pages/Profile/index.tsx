@@ -52,7 +52,8 @@ const Profile = () => {
   const onSubmit = async () => {
     setIsLoading(true)
     const token = await getCredentials().then((res) => res?.accessToken)
-    const registerData = form.getValues() as UpdateAccount
+    const formValues = form.getValues() as UpdateAccount
+    const registerData = { ...formValues, email: authUser.email }
 
     if (token)
       await updateUserDetails(registerData, token)
@@ -64,11 +65,15 @@ const Profile = () => {
           }),
             showToastUserUpdated()
         })
-        .catch(() => {
+        .catch((e) => {
+          console.log(e.response)
           setIsLoading(false)
           setShowModal(true)
         })
-        .finally(() => setIsLoading(false))
+        .finally(() => {
+          setShowModal(false)
+          setIsLoading(false)
+        })
   }
 
   const handleAccountDelete = async () => {

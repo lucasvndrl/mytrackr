@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
-import { AccountResponse, AccountTable } from '../types/AuthContext'
+import { AccountTable } from '../types/AuthContext'
 import { UpdateAccount } from '../pages/Profile'
-import dayjs from 'dayjs'
 
 export interface RegisterUserProps {
   user_id: string
@@ -35,7 +34,7 @@ export const registerUser = async ({
   } as AccountTable
 
   const response = await axios.post(
-    'https://a0de-187-46-129-29.ngrok-free.app/account',
+    `https://2cfc-187-46-129-205.ngrok-free.app/account/`,
     {
       account,
     },
@@ -51,9 +50,9 @@ export const registerUser = async ({
 
 export const getUserDetails = async (
   accessToken: string,
-): Promise<AxiosResponse<AccountResponse> | undefined> => {
+): Promise<AxiosResponse<AccountTable> | undefined> => {
   try {
-    const response = await axios.get('https://a0de-187-46-129-29.ngrok-free.app/account', {
+    const response = await axios.get(`https://2cfc-187-46-129-205.ngrok-free.app/account/`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -81,7 +80,7 @@ export const updateUserDetails = async (
   accessToken: string,
 ): Promise<AxiosResponse> => {
   const response = await axios.patch(
-    'https://a0de-187-46-129-29.ngrok-free.app/account',
+    `https://2cfc-187-46-129-205.ngrok-free.app/account/`,
     {
       account,
     },
@@ -96,7 +95,7 @@ export const updateUserDetails = async (
 }
 
 export const deleteUser = async (accessToken: string): Promise<AxiosResponse> => {
-  const response = await axios.delete('https://a0de-187-46-129-29.ngrok-free.app/account', {
+  const response = await axios.delete(`https://2cfc-187-46-129-205.ngrok-free.app/account/`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

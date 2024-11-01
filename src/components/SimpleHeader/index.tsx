@@ -7,6 +7,7 @@ import { COLORS } from '../../constants/theme'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../../hooks/Auth'
+import Typography from '../Typography'
 
 type SimpleHeaderProps = {
   onPress: () => void
@@ -61,8 +62,15 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({ onPress, closeIcon, options, rout
           )}
         </Button>
 
-        {title && <Text>{title}</Text>}
-        {/* For align header */}
+        {title && (
+          <View
+            style={{
+              marginRight: 230,
+            }}
+          >
+            <Typography type='Heading 2'>{title}</Typography>
+          </View>
+        )}
       </RowTextIcon>
 
       {userIcon ? (

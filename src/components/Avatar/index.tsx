@@ -1,7 +1,7 @@
-import React from 'react'
-import { IconContainer, IconRow, IconView } from './styles'
 import * as ImagePicker from 'expo-image-picker'
+import React from 'react'
 import { Controller, FieldValues, Path, UseFormReturn } from 'react-hook-form'
+import { IconContainer, IconRow, IconView } from './styles'
 
 interface AvatarProps<T extends FieldValues> {
   form: UseFormReturn<T>

@@ -4,12 +4,19 @@ import { ActivityIndicator } from 'react-native'
 import { COLORS } from '../../constants/theme'
 import Typography from '../Typography'
 
-const Loading = () => {
+interface LoadingProps {
+  activityIndicator?: boolean
+  loadingText?: string
+}
+
+const Loading = ({ activityIndicator, loadingText }: LoadingProps) => {
   return (
     <Container>
-      <ActivityIndicator size='small' color={COLORS.secondaryBackground} />
+      {activityIndicator ? (
+        <ActivityIndicator size='small' color={COLORS.secondaryBackground} />
+      ) : null}
       <TextContainer>
-        <Typography type='Heading 3'>Loading...</Typography>
+        <Typography type='Heading 3'>{loadingText ? loadingText : 'Loading...'}</Typography>
       </TextContainer>
     </Container>
   )

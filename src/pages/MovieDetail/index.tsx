@@ -1,12 +1,18 @@
-import React from "react";
-import { Image, ScrollView, View } from "react-native";
-import Typography from "../../components/Typography";
-import { ReviewType } from "../../types/Review";
-import { useNavigation } from "@react-navigation/native";
-import { COLORS, SIZES } from "../../constants/theme";
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
+import { Alert, TouchableOpacity } from 'react-native'
+import { StarRatingDisplay } from 'react-native-star-rating-widget'
+import { LineItem } from '../../components/Line/styles'
+import Loading from '../../components/Loading'
+import Review from '../../components/Review'
+import Spacing from '../../components/Spacing'
+import Typography from '../../components/Typography'
+import { COLORS, SIZES } from '../../constants/theme'
+import { useMovies } from '../../hooks/Movies'
+import { Movie } from '../../types/Movie'
+import { Review as ReviewType } from '../../types/Review'
 import {
-  InfoContainer,
-  InfoOptionsButton,
+  AllReviewsRow,
   Container,
   DirectorContainer,
   HeaderView,
@@ -15,206 +21,117 @@ import {
   LeftContainer,
   MovieTitleContainer,
   OptionButton,
-  RateStarsContainer,
+  OptionIcon,
   RatingsContainer,
-  RightContainer,
-  StatsContainer,
-  SummaryContainer,
-  AllReviewsRow,
-  Line,
   ReviewContainer,
-} from "./styles";
-import StatsIcon from "../../components/Icons/StatsIcon";
-import ImageRow from "../../components/ImageRow";
-import Review from "../../components/Review";
-import { reviews } from "../../mocks/ReviewMocks";
-import Spacing from "../../components/Spacing";
-import Star from "../../components/Star";
-import { LineItem } from "../../components/Line/styles";
+  RightContainer,
+  SummaryContainer,
+} from './styles'
 
 const MovieDetail = () => {
-  const [infoOption, setInfoOption] = React.useState<string>("Cast");
-  const movieBanner = require("../../assets/images/batmanBanner.png");
+  const [loading, setLoading] = React.useState<boolean>(true)
+  const [movie, setMovie] = useState({} as Movie)
+  const [movieReviews, setMovieReviews] = useState([] as ReviewType[])
+  const navigation = useNavigation<NavigationProp<ScreenParamList, 'ReviewsList' | 'WriteReview'>>()
+  const { params } = useRoute<RouteProp<ScreenParamList, 'MovieDetail'>>()
+  const { movies, reviews } = useMovies()
+
+  const getMovieDetails = async (movieId: string) => {
+    setLoading(true)
+    const movie = movies.find((movie) => movie.movie_id == movieId)
+    if (movie) {
+      const reviewsByMovieId =
+        reviews.filter((review) => review.movie_id == movie.movie_id) ?? ([] as ReviewType[])
+      setMovie(movie)
+      setMovieReviews(reviewsByMovieId)
+    } else {
+      setLoading(false)
+      Alert.alert('There has been an error recovering movie details')
+      navigation.goBack()
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    if (params.movie_id != null) {
+      getMovieDetails(params.movie_id)
+    }
+  }, [])
 
   return (
     <Container>
-      <ImageBanner source={movieBanner} />
-      <HeaderView>
-        <LeftContainer>
-          <ImageItem source={require("../../assets/images/batman.png")} />
-          <StatsContainer>
-            <StatsIcon
-              image={require("../../assets/icons/eye.png")}
-              stats="40k"
-            />
-            <StatsIcon
-              image={require("../../assets/icons/heart.png")}
-              stats="30k"
-            />
-            <StatsIcon
-              image={require("../../assets/icons/list-check.png")}
-              stats="10k"
-            />
-          </StatsContainer>
-          <OptionButton>
-            <Image
-              source={require("../../assets/icons/review-icon.png")}
-              style={{
-                width: 12,
-                height: 12,
-                marginRight: 5,
-                marginLeft: 10,
-              }}
-            />
-            <Typography
-              fontSize={SIZES.medium}
-              fontWeight="Semibold"
-              color="black"
-            >
-              Rate or review
-            </Typography>
-          </OptionButton>
-          <OptionButton>
-            <Image
-              source={require("../../assets/icons/bookmark.png")}
-              style={{
-                width: 12,
-                height: 12,
-                marginRight: 5,
-                marginLeft: 10,
-              }}
-            />
-            <Typography
-              fontSize={SIZES.medium}
-              fontWeight="Semibold"
-              color="black"
-            >
-              Add to list
-            </Typography>
-          </OptionButton>
-          <OptionButton>
-            <Image
-              source={require("../../assets/icons/play-alt.png")}
-              style={{
-                width: 12,
-                height: 12,
-                marginRight: 5,
-                marginLeft: 10,
-              }}
-            />
-            <Typography
-              fontSize={SIZES.medium}
-              fontWeight="Semibold"
-              color="black"
-            >
-              Add to watchlist
-            </Typography>
-          </OptionButton>
-        </LeftContainer>
-        <RightContainer>
-          <MovieTitleContainer>
-            <Typography
-              color={COLORS.white}
-              fontSize={SIZES.large}
-              fontWeight="Bold"
-            >
-              The Batman
-            </Typography>
-            <Typography
-              color={COLORS.white}
-              fontSize={SIZES.medium}
-              fontWeight="Semibold"
-            >
-              2022
-            </Typography>
-            <Typography
-              color={COLORS.white}
-              fontSize={SIZES.small}
-              fontWeight="Semibold"
-            >
-              176mins
-            </Typography>
-          </MovieTitleContainer>
-          <DirectorContainer>
-            <Typography fontSize={SIZES.small} fontWeight="Semibold">
-              Directed by
-            </Typography>
-            <Spacing width={5} />
-            <Typography fontSize={SIZES.small} fontWeight="Bold">
-              Matt Reeves
-            </Typography>
-          </DirectorContainer>
-          <SummaryContainer>
-            <Typography fontSize={SIZES.small} fontWeight="Regular">
-              UNMASK THE TRUTH.
-            </Typography>
-            <Typography fontSize={SIZES.small} lineHeight={15}>
-              In his second year of fighting crime, Batman uncovers corruption
-              in Gotham City that connects to his own family while facing a
-              serial killer known as the Riddler.
-            </Typography>
-          </SummaryContainer>
-          <Spacing height={20} />
-          <RatingsContainer>
-            <Typography>Ratings</Typography>
-            <Spacing height={10} />
-            <Typography fontSize={SIZES.xLarge} fontWeight="Regular">
-              4.4
-            </Typography>
-            <RateStarsContainer>
-              <Star />
-              <Star />
-              <Star />
-              <Star />
-              <Star />
-            </RateStarsContainer>
-          </RatingsContainer>
-        </RightContainer>
-      </HeaderView>
-      <InfoContainer>
-        <InfoOptionsButton
-          isActive={infoOption == "Cast" ? true : false}
-          onPress={() => setInfoOption("Cast")}
-        >
-          <Typography fontSize={SIZES.medium} fontWeight="Semibold">
-            Cast
-          </Typography>
-        </InfoOptionsButton>
-        <InfoOptionsButton isActive={infoOption == "Crew" ? true : false}>
-          <Typography
-            fontSize={SIZES.medium}
-            fontWeight="Semibold"
-            onPress={() => setInfoOption("Crew")}
-          >
-            Crew
-          </Typography>
-        </InfoOptionsButton>
-        <InfoOptionsButton isActive={infoOption == "Details" ? true : false}>
-          <Typography
-            fontSize={SIZES.medium}
-            fontWeight="Semibold"
-            onPress={() => setInfoOption("Details")}
-          >
-            Details
-          </Typography>
-        </InfoOptionsButton>
-      </InfoContainer>
-      {infoOption == "Cast" && <ImageRow option={infoOption} />}
-      {infoOption == "Crew" && <ImageRow option={infoOption} />}
-      <AllReviewsRow>
-        <Typography fontSize={SIZES.medium} fontWeight="Bold">
-          All Reviews
-        </Typography>
-        <Typography fontSize={SIZES.medium} fontWeight="Semibold">
-          See All
-        </Typography>
-      </AllReviewsRow>
-      <LineItem />
-      <ReviewContainer>
-        <Review review={reviews[0]} showFullInfo={false} />
-      </ReviewContainer>
-    </Container>
-  );
-};
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <ImageBanner source={movie.poster} />
+          <HeaderView>
+            <LeftContainer>
+              <ImageItem source={movie.poster} />
+              <OptionButton onPress={() => navigation.navigate('WriteReview', { movie: movie })}>
+                <OptionIcon source={require('../../assets/icons/review-icon.png')} />
+                <Typography fontSize={SIZES.large} fontWeight='Semibold' color='black'>
+                  Rate or review
+                </Typography>
+              </OptionButton>
+            </LeftContainer>
+            <RightContainer>
+              <MovieTitleContainer>
+                <Typography color={COLORS.white} fontSize={SIZES.large} fontWeight='Bold'>
+                  {movie.title}
+                </Typography>
 
-export default MovieDetail;
+                <Typography color={COLORS.white} fontSize={SIZES.small} fontWeight='Semibold'>
+                  {movie.duration} min
+                </Typography>
+              </MovieTitleContainer>
+              <DirectorContainer>
+                <Typography fontSize={SIZES.medium} fontWeight='Semibold'>
+                  Directed by
+                </Typography>
+                <Spacing width={5} />
+                <Typography fontSize={SIZES.medium} fontWeight='Bold'>
+                  {movie.directed_by}
+                </Typography>
+              </DirectorContainer>
+              <SummaryContainer>
+                <Typography fontSize={SIZES.medium} lineHeight={15}>
+                  {movie.synopsis}
+                </Typography>
+              </SummaryContainer>
+              <Spacing height={20} />
+              <RatingsContainer>
+                <Typography>Ratings</Typography>
+                <Spacing height={10} />
+                <Typography fontSize={SIZES.xLarge} fontWeight='Regular'>
+                  {movie.rating}
+                </Typography>
+                <StarRatingDisplay rating={movie.rating} />
+              </RatingsContainer>
+            </RightContainer>
+          </HeaderView>
+          <AllReviewsRow>
+            <Typography fontSize={SIZES.medium} fontWeight='Bold'>
+              All Reviews
+            </Typography>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ReviewsList', { reviews: movieReviews })}
+            >
+              <Typography fontSize={SIZES.medium} fontWeight='Semibold'>
+                See All
+              </Typography>
+            </TouchableOpacity>
+          </AllReviewsRow>
+          <LineItem />
+          <ReviewContainer>
+            {movieReviews.map((review) => {
+              return <Review review={review} showFullInfo={true} key={review.review_id} />
+            })}
+          </ReviewContainer>
+        </>
+      )}
+    </Container>
+  )
+}
+
+export default MovieDetail

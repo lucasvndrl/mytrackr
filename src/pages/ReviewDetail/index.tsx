@@ -1,75 +1,73 @@
-import React from "react";
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
+import { Alert } from 'react-native'
+import { StarRatingDisplay } from 'react-native-star-rating-widget'
+import { LineItem } from '../../components/Line/styles'
+import Spacing from '../../components/Spacing'
+import Typography from '../../components/Typography'
+import { SIZES } from '../../constants/theme'
+import { Review } from '../../types/Review'
 import {
   Container,
   ContentContainer,
-  ImageBanner,
-  ImageBannerContainer,
   ImageItem,
-  LikeItem,
-  LikesRow,
   MovieCoverContainer,
   MovieTitleRow,
   ProfileIcon,
   ProfileName,
   ReviewContainer,
-  StarsRow,
-} from "./styles";
-import Typography from "../../components/Typography";
-import { useNavigation } from "@react-navigation/native";
-import { SIZES } from "../../constants/theme";
-import { Image } from "react-native";
-import Star from "../../components/Star";
-import Spacing from "../../components/Spacing";
-import { LineItem } from "../../components/Line/styles";
+} from './styles'
 
 const ReviewDetail = () => {
+  const { params } = useRoute<RouteProp<ScreenParamList, 'ReviewDetail'>>()
+  const [review, setReview] = useState<Review>({} as Review)
+  const navigation = useNavigation()
+  const defaultAvatar = require('../../assets/icons/user.png')
+  const defaultPoster = require('../../assets/images/default-movie.png')
+  useEffect(() => {
+    if (params.review != null) {
+      setReview(params.review)
+    } else {
+      Alert.alert('There has been an error recovering review details')
+      navigation.goBack()
+    }
+  }, [])
+
   return (
     <Container>
       <ReviewContainer>
         <ContentContainer>
           <ProfileName>
-            <ProfileIcon source={require("../../assets/images/batman.png")} />
-            <Typography fontSize={SIZES.small}>Nome do usuário</Typography>
+            <ProfileIcon
+              source={
+                review.reviewer_avatar
+                  ? { uri: `data:image/jpeg;base64,${review.reviewer_avatar}` }
+                  : defaultAvatar
+              }
+            />
+            <Typography fontSize={SIZES.large}>{review.reviewer_name}</Typography>
           </ProfileName>
           <MovieTitleRow>
-            <Typography fontSize={SIZES.large} fontWeight="Bold">
-              Título do filme
+            <Typography fontSize={SIZES.large} fontWeight='Bold'>
+              {review.movie_title}
             </Typography>
           </MovieTitleRow>
-          <StarsRow>
-            <Star />
-            <Star />
-            <Star />
-            <Star />
-            <Star />
-          </StarsRow>
+          <StarRatingDisplay rating={review.rating} />
           <Spacing height={5} />
-          <Typography fontSize={SIZES.small}>
-            Watched 23 de novembro de 2023
-          </Typography>
+          <Typography fontSize={SIZES.medium}>Watched 23 de novembro de 2023</Typography>
           <Spacing height={5} />
           <Typography fontSize={SIZES.medium} lineHeight={12}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s.
+            {review.review_text}
           </Typography>
-          <LikesRow>
-            <LikeItem source={require("../../assets/icons/hollow-heart.png")} />
-            <Typography fontSize={SIZES.small} fontWeight="Bold">
-              LIKES ?
-            </Typography>
-            <Spacing width={5} />
-            <Typography fontSize={SIZES.small}>5.280 likes</Typography>
-          </LikesRow>
         </ContentContainer>
         <MovieCoverContainer>
-          <ImageItem source={require("../../assets/images/batman.png")} />
+          <ImageItem source={review.movie_poster ? review.movie_poster : defaultPoster} />
         </MovieCoverContainer>
       </ReviewContainer>
       <Spacing height={10} />
       <LineItem />
     </Container>
-  );
-};
+  )
+}
 
-export default ReviewDetail;
+export default ReviewDetail

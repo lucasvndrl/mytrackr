@@ -10,4 +10,9 @@ export const messages = {
   register_needed_msg: 'Looks like you need to register first!',
   register_needed_title: 'Hold on!',
   register_needed_button: 'Register',
+  review_created_successfully_msg: 'Review created successfully!',
+  review_created_successfully_title: 'Done!',
+  review_not_created_error_title: 'Error',
+  review_response_button: 'Redirect',
+  review_not_created_error: 'An error occurred while creating the review',
 }
