@@ -81,11 +81,17 @@ const Profile = () => {
     const token = await getCredentials().then((res) => res?.accessToken)
 
     if (token) {
-      const result = await deleteUser(token)
+      try {
+        const result = await deleteUser(token)
 
-      if (result.status === 200) {
+        if (result.status === 200) {
+          setIsLoading(false)
+          setUserDeleted(true)
+          setShowModal(true)
+        }
+      } catch (e) {
+        console.log(e)
         setIsLoading(false)
-        setUserDeleted(true)
         setShowModal(true)
       }
     }

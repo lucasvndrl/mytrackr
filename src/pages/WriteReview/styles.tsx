@@ -61,6 +61,7 @@ export const Button = styled.TouchableOpacity`
 `
 
 export const ButtonContainer = styled.View`
-  padding: ${RFValue(20)}px;
+  padding-left: ${RFValue(20)}px;
+  padding-right: ${RFValue(20)}px;
   width: 100%;
 `

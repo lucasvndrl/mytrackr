@@ -26,5 +26,5 @@ export const ButtonDeleteContainer = styled.TouchableOpacity`
   border-radius: ${RFValue(10)}px;
   align-items: center;
   width: 100%;
-  margin-top: ${RFValue(250)}px;
+  margin-top: ${RFValue(220)}px;
 `
