@@ -38,7 +38,7 @@ describe('RecentReviews Component', () => {
       </NavigationContainer>,
     )
 
-    expect(getByText("Recent Friend's Review")).toBeTruthy()
+    expect(getByText('Recent Reviews')).toBeTruthy()
 
     const reviewElements = getAllByTestId('review-item')
     expect(reviewElements.length).toBe(mockReviews.length)
