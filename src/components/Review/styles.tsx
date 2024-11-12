@@ -2,9 +2,11 @@ import styled from 'styled-components/native'
 import { COLORS } from '../../constants/theme'
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   background-color: ${COLORS.background};
   width: 100%;
+  min-height: ${RFValue(100)}px;
+  display: flex;
 `
 
 export const ReviewRow = styled.View`
@@ -14,11 +16,12 @@ export const ReviewRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: ${RFValue(10)}px;
+  flex: 1;
 `
 
 export const ImageItem = styled.Image`
-  height: ${RFValue(100)}px;
-  width: ${RFValue(60)}px;
+  height: 100%;
+  width: ${RFPercentage(10)}px;
   border-radius: 10px;
 `
 
@@ -30,8 +33,8 @@ export const ProfilePictureRow = styled.View`
 export const CommentSection = styled.View`
   flex-direction: column;
   margin-left: ${RFValue(15)}px;
-  width: 65%;
   display: flex;
+  margin-right: ${RFValue(15)}px;
   flex: 1;
 `
 

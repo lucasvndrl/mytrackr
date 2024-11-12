@@ -13,6 +13,6 @@ export const messages = {
   review_created_successfully_msg: 'Review created successfully!',
   review_created_successfully_title: 'Done!',
   review_not_created_error_title: 'Error',
-  review_response_button: 'Redirect',
+  review_response_button: 'See reviews',
   review_not_created_error: 'An error occurred while creating the review',
 }

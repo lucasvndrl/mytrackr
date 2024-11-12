@@ -26,7 +26,7 @@ const Review = ({ review, showFullInfo, testID }: ReviewProps) => {
   const { authUser } = useAuth()
   const defaultAvatar = require('../../assets/icons/user.png')
   return (
-    <TouchableOpacity
+    <Container
       onPress={() =>
         navigate.navigate('ReviewDetail', {
           review,
@@ -34,53 +34,38 @@ const Review = ({ review, showFullInfo, testID }: ReviewProps) => {
       }
       testID={testID}
     >
-      <Container>
-        <ReviewRow>
-          <ProfilePictureRow>
-            <ProfileIcon
-              testID='reviewer-avatar'
-              source={
-                review.reviewer_avatar
-                  ? { uri: `data:image/jpeg;base64,${review.reviewer_avatar}` }
-                  : defaultAvatar
-              }
-            />
-          </ProfilePictureRow>
-          <CommentSection>
-            {showFullInfo == true ? (
-              <Typography type='Paragraph' color={COLORS.white}>
-                {review.movie_title}
-              </Typography>
-            ) : (
-              <Spacing height={5} />
-            )}
-            <Typography type='Small paragraph' color={COLORS.green}>
-              {review.reviewer_name}
-            </Typography>
-            <Typography type='Small paragraph' color={COLORS.white} textAlign='left'>
-              {review.review_text}
-            </Typography>
-            <TouchableOpacity
-              style={{ paddingTop: 60 }}
-              onPress={() =>
-                navigate.navigate('ReviewDetail', {
-                  review,
-                })
-              }
-            >
-              <Typography type='Small paragraph' color={COLORS.primaryPurple}>
-                Read more
-              </Typography>
-            </TouchableOpacity>
-          </CommentSection>
+      <ReviewRow>
+        <ProfilePictureRow>
+          <ProfileIcon
+            testID='reviewer-avatar'
+            source={
+              review.reviewer_avatar
+                ? { uri: `data:image/jpeg;base64,${review.reviewer_avatar}` }
+                : defaultAvatar
+            }
+          />
+        </ProfilePictureRow>
+        <CommentSection>
           {showFullInfo == true ? (
-            <ImageItem source={review.movie_poster} />
+            <Typography type='Paragraph' color={COLORS.white}>
+              {review.movie_title}
+            </Typography>
           ) : (
-            <Spacing width={30} />
+            <Spacing height={5} />
           )}
-        </ReviewRow>
-      </Container>
-    </TouchableOpacity>
+          <Typography type='Small paragraph' color={COLORS.green}>
+            {review.reviewer_name}
+          </Typography>
+          <Typography type='Small paragraph' color={COLORS.white} textAlign='justify'>
+            {review.review_text}
+          </Typography>
+          <Typography type='Small paragraph' color={COLORS.primaryPurple}>
+            Read more
+          </Typography>
+        </CommentSection>
+        {showFullInfo == true ? <ImageItem source={review.movie_poster} /> : <Spacing width={30} />}
+      </ReviewRow>
+    </Container>
   )
 }
 

@@ -22,6 +22,7 @@ const Homepage = () => {
     const userToken = await getCredentials().then((res: any) => {
       return res.accessToken
     })
+
     await getMovies(userToken)
     await getReviews(userToken)
   }
