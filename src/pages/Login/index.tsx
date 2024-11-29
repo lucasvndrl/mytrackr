@@ -11,12 +11,14 @@ import {
   MessageContainer,
   TitleContainer,
 } from './styles'
+import { useTranslation } from 'react-i18next'
 
 const Login = () => {
   const { authorize, error } = useAuth0()
   const { handleLogin } = useAuth()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { navigate } = useNavigation()
+  const { t } = useTranslation()
 
   const onLogin = async () => {
     try {
@@ -51,11 +53,11 @@ const Login = () => {
         </Typography> */}
             <MessageContainer>
               <Typography type='Lead Paragraph' textAlign='center'>
-                Please sign in to continue.
+                {t('login_header')}
               </Typography>
             </MessageContainer>
             <ActionButton onPress={onLogin}>
-              <Typography type='Button Title'>Login</Typography>
+              <Typography type='Button Title'>{t('button_title_login')}</Typography>
             </ActionButton>
           </ButtonContainer>
         </>

@@ -14,6 +14,7 @@ import { Review as ReviewType } from '../../types/Review'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import Spacing from '../Spacing'
 import { useAuth } from '../../hooks/Auth'
+import { useTranslation } from 'react-i18next'
 
 interface ReviewProps {
   review: ReviewType
@@ -24,6 +25,7 @@ interface ReviewProps {
 const Review = ({ review, showFullInfo, testID }: ReviewProps) => {
   const navigate = useNavigation<NavigationProp<ScreenParamList, 'ReviewDetail'>>()
   const { authUser } = useAuth()
+  const { t } = useTranslation()
   const defaultAvatar = require('../../assets/icons/user.png')
   return (
     <Container
@@ -60,7 +62,7 @@ const Review = ({ review, showFullInfo, testID }: ReviewProps) => {
             {review.review_text}
           </Typography>
           <Typography type='Small paragraph' color={COLORS.primaryPurple}>
-            Read more
+            {t('read_more_text')}
           </Typography>
         </CommentSection>
         {showFullInfo == true ? <ImageItem source={review.movie_poster} /> : <Spacing width={30} />}

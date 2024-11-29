@@ -28,12 +28,14 @@ import { useAuth } from '../../hooks/Auth'
 import { ActivityIndicator } from 'react-native-paper'
 import CustomModal from '../../components/CustomModal'
 import { messages } from '../../constants/messages'
+import { useTranslation } from 'react-i18next'
 
 const WriteReview = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [error, setError] = useState<boolean>(false)
   const { params } = useRoute<RouteProp<ScreenParamList, 'WriteReview'>>()
+  const { t } = useTranslation()
   const movie: Movie = params.movie ?? ({} as Movie)
   const form = useForm<WriteReviewFormData>({
     defaultValues: writeReviewFormDefaultValues,
@@ -74,14 +76,10 @@ const WriteReview = () => {
     <Container>
       {showModal && (
         <CustomModal
-          buttonMessage={messages.review_response_button}
-          message={
-            error ? messages.review_not_created_error : messages.review_created_successfully_msg
-          }
+          buttonMessage={t('review_response_button')}
+          message={error ? t('review_not_created_error') : t('review_created_successfully_msg')}
           title={
-            error
-              ? messages.review_not_created_error_title
-              : messages.review_created_successfully_title
+            error ? t('review_not_created_error_title') : t('review_created_successfully_title')
           }
           openModal={showModal}
           onCloseModal={() => (error ? setShowModal(false) : closeModalAndRedirect())}
@@ -120,13 +118,13 @@ const WriteReview = () => {
           multiline={true}
           maxLength={250}
           numberOfLines={20}
-          placeholder='Write down your review...'
+          placeholder={t('write_down_review_placeholder')}
         />
       </View>
       <ButtonContainer>
         <Button onPress={form.handleSubmit(onSubmit)}>
           <Typography color={COLORS.white} fontSize={SIZES.xLarge} fontWeight='Bold'>
-            {isLoading ? <ActivityIndicator /> : 'Submit Review'}
+            {isLoading ? <ActivityIndicator /> : t('done_message')}
           </Typography>
         </Button>
       </ButtonContainer>

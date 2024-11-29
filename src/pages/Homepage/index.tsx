@@ -11,12 +11,14 @@ import { COLORS } from '../../constants/theme'
 import { useAuth } from '../../hooks/Auth'
 import { useMovies } from '../../hooks/Movies'
 import { Container, TitleContainer } from './styles'
+import { useTranslation } from 'react-i18next'
 const Homepage = () => {
   const { authUser } = useAuth()
   const { getCredentials } = useAuth0()
   const { navigate } = useNavigation()
   const { movies, getMovies, reviews, getReviews } = useMovies()
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false)
+  const { t } = useTranslation()
 
   const loadData = async () => {
     const userToken = await getCredentials().then((res: any) => {
@@ -68,10 +70,11 @@ const Homepage = () => {
             >
               <TitleContainer>
                 <Typography type='Heading 1' color={COLORS.white}>
-                  Hello, {authUser.login ? authUser.login : 'YOU'}!
+                  {t('homepage_welcome_message')},{' '}
+                  {authUser.login ? authUser.login : t('homepage_welcome_generic_name')}!
                 </Typography>
                 <Typography type='Small paragraph' color={COLORS.white}>
-                  Welcome to MyTrackr!
+                  {t('homepage_mytrackr_message')}
                 </Typography>
               </TitleContainer>
               <PopularMovies movies={movies} />

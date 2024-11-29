@@ -10,10 +10,11 @@ import {
   MessageContainer,
   TitleContainer,
 } from './styles'
-import CustomModal from '../../components/CustomModal'
+import { useTranslation } from 'react-i18next'
 
 const LandPage = () => {
   const navigation = useNavigation()
+  const { t } = useTranslation()
 
   return (
     <Container>
@@ -26,11 +27,11 @@ const LandPage = () => {
       <ButtonContainer>
         <MessageContainer>
           <Typography type='Heading 2' textAlign='center'>
-            “Track films you’ve watched. Save those you want to see. Tell your friends what’s good.”
+            {t('land_page_text')}
           </Typography>
         </MessageContainer>
         <ActionButton onPress={() => navigation.navigate('Login' as never)}>
-          <Typography type='Button Title'>Get Started</Typography>
+          <Typography type='Button Title'>{t('land_page_get_started')}</Typography>
         </ActionButton>
       </ButtonContainer>
     </Container>

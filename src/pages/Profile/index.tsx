@@ -14,6 +14,7 @@ import Form from './Form'
 import { ProfileFormData, getUserFormDefaultValues, profileFormSchema } from './Form/schema'
 import { ButtonContainer, ButtonDeleteContainer, Container, PageTitleContainer } from './styles'
 import { ToastAndroid } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
 export interface UpdateAccount {
   username: string
@@ -27,6 +28,7 @@ const Profile = () => {
   const [userDeleted, setUserDeleted] = useState<boolean>(false)
   const { getCredentials, clearSession } = useAuth0()
   const { authUser, setAuthUser } = useAuth()
+  const { t } = useTranslation()
 
   const userFormDefaultValues = useMemo(
     () =>
@@ -126,7 +128,7 @@ const Profile = () => {
         <>
           <PageTitleContainer>
             <Typography type='Heading 2' color={COLORS.white}>
-              Update profile
+              {t('update_profile_text')}
             </Typography>
           </PageTitleContainer>
           <Form form={form} />
@@ -137,27 +139,21 @@ const Profile = () => {
           </ButtonContainer>
           <ButtonDeleteContainer onPress={handleAccountDelete}>
             <Typography type='Heading 2' color={COLORS.white}>
-              Delete account
+              {t('delete_account_text')}
             </Typography>
           </ButtonDeleteContainer>
           {showModal && (
             <CustomModal
               buttonMessage={
-                userDeleted
-                  ? messages.user_deleted_successfully_button
-                  : messages.user_update_error_button
+                userDeleted ? t('user_deleted_successfully_button') : t('user_update_error_button')
               }
               onCloseModal={userDeleted ? handleCloseModal : () => {}}
               openModal={showModal}
               message={
-                userDeleted
-                  ? messages.user_deleted_successfully_msg
-                  : messages.user_update_error_msg
+                userDeleted ? t('user_deleted_successfully_msg') : t('user_update_error_msg')
               }
               title={
-                userDeleted
-                  ? messages.user_deleted_successfully_title
-                  : messages.user_update_error_title
+                userDeleted ? t('user_deleted_successfully_title') : t('user_update_error_title')
               }
             />
           )}

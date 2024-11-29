@@ -5,11 +5,13 @@ import Typography from '../../components/Typography'
 import { useAuth } from '../../hooks/Auth'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useAuth0 } from 'react-native-auth0'
+import { useTranslation } from 'react-i18next'
 
 const CheckCredentials = () => {
   const { handleLogin, authUser } = useAuth()
   const { hasValidCredentials } = useAuth0()
   const navigate = useNavigation()
+  const { t } = useTranslation()
 
   const fetchAuthUser = async () => {
     const userLoggedAuth0 = await hasValidCredentials()
@@ -28,7 +30,7 @@ const CheckCredentials = () => {
     <Container>
       <ActivityIndicator size='small' color={COLORS.secondaryBackground} />
       <TextContainer>
-        <Typography type='Heading 3'>Checking credentials...</Typography>
+        <Typography type='Heading 3'>{t('checking_credentials_text')}</Typography>
       </TextContainer>
     </Container>
   )

@@ -27,6 +27,7 @@ import {
   RightContainer,
   SummaryContainer,
 } from './styles'
+import { useTranslation } from 'react-i18next'
 
 const MovieDetail = () => {
   const [loading, setLoading] = React.useState<boolean>(true)
@@ -35,6 +36,7 @@ const MovieDetail = () => {
   const navigation = useNavigation<NavigationProp<ScreenParamList, 'ReviewsList' | 'WriteReview'>>()
   const { params } = useRoute<RouteProp<ScreenParamList, 'MovieDetail'>>()
   const { movies, reviews } = useMovies()
+  const { t } = useTranslation()
 
   const getMovieDetails = async (movieId: string) => {
     setLoading(true)
@@ -71,7 +73,7 @@ const MovieDetail = () => {
               <OptionButton onPress={() => navigation.navigate('WriteReview', { movie: movie })}>
                 <OptionIcon source={require('../../assets/icons/review-icon.png')} />
                 <Typography fontSize={SIZES.large} fontWeight='Semibold' color='black'>
-                  Rate or review
+                  {t('rate_or_review_text')}
                 </Typography>
               </OptionButton>
             </LeftContainer>
@@ -87,7 +89,7 @@ const MovieDetail = () => {
               </MovieTitleContainer>
               <DirectorContainer>
                 <Typography fontSize={SIZES.medium} fontWeight='Semibold'>
-                  Directed by
+                  {t('directed_by_text')}
                 </Typography>
                 <Spacing width={5} />
                 <Typography fontSize={SIZES.medium} fontWeight='Bold'>
@@ -101,7 +103,7 @@ const MovieDetail = () => {
               </SummaryContainer>
               <Spacing height={20} />
               <RatingsContainer>
-                <Typography>Ratings</Typography>
+                <Typography>{t('reviews_text')}</Typography>
                 <Spacing height={10} />
                 <Typography fontSize={SIZES.xLarge} fontWeight='Regular'>
                   {movie.rating}
@@ -112,13 +114,13 @@ const MovieDetail = () => {
           </HeaderView>
           <AllReviewsRow>
             <Typography fontSize={SIZES.medium} fontWeight='Bold'>
-              All Reviews
+              {t('all_reviews_text')}
             </Typography>
             <TouchableOpacity
               onPress={() => navigation.navigate('ReviewsList', { reviews: movieReviews })}
             >
               <Typography fontSize={SIZES.medium} fontWeight='Semibold'>
-                See All
+                {t('see_all_text')}
               </Typography>
             </TouchableOpacity>
           </AllReviewsRow>

@@ -6,6 +6,8 @@ import { AuthProvider } from './src/hooks/Auth'
 import { Routes } from './src/routes'
 import { PaperProvider } from 'react-native-paper'
 import { MoviesContext, MoviesProvider } from './src/hooks/Movies'
+import { I18nextProvider } from 'react-i18next'
+import i18n from './i18n'
 const fetchFonts = async () => {
   await Font.loadAsync({
     OpenSansLight: require('./src/assets/fonts/OpenSans_Condensed-Light.ttf'),
@@ -49,7 +51,9 @@ export default function App() {
       <PaperProvider>
         <AuthProvider>
           <MoviesProvider>
-            <Routes initialRouteName='Land' />
+            <I18nextProvider i18n={i18n}>
+              <Routes initialRouteName='Land' />
+            </I18nextProvider>
           </MoviesProvider>
         </AuthProvider>
       </PaperProvider>

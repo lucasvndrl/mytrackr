@@ -17,6 +17,7 @@ import {
   ProfileName,
   ReviewContainer,
 } from './styles'
+import { useTranslation } from 'react-i18next'
 
 const ReviewDetail = () => {
   const { params } = useRoute<RouteProp<ScreenParamList, 'ReviewDetail'>>()
@@ -24,11 +25,12 @@ const ReviewDetail = () => {
   const navigation = useNavigation()
   const defaultAvatar = require('../../assets/icons/user.png')
   const defaultPoster = require('../../assets/images/default-movie.png')
+  const { t } = useTranslation()
   useEffect(() => {
     if (params.review != null) {
       setReview(params.review)
     } else {
-      Alert.alert('There has been an error recovering review details')
+      Alert.alert(t('alert_error_fetching_reviews'))
       navigation.goBack()
     }
   }, [])
@@ -54,7 +56,7 @@ const ReviewDetail = () => {
           </MovieTitleRow>
           <StarRatingDisplay rating={review.rating} />
           <Spacing height={5} />
-          <Typography fontSize={SIZES.medium}>Watched 23 de novembro de 2023</Typography>
+          {/* <Typography fontSize={SIZES.medium}>{}</Typography> */}
           <Spacing height={5} />
           <Typography fontSize={SIZES.medium} lineHeight={12}>
             {review.review_text}

@@ -11,12 +11,14 @@ import { UserFormData, getUserFormDefaultValues, userFormSchema } from './Form/s
 import { ButtonContainer, Container, PageTitleContainer } from './styles'
 import CustomModal from '../../components/CustomModal'
 import { messages } from '../../constants/messages'
+import { useTranslation } from 'react-i18next'
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [showModal, setShowModal] = useState<boolean>(false)
   const { handleRegister } = useAuth()
   const { user, getCredentials } = useAuth0()
+  const { t } = useTranslation()
 
   const userFormDefaultValues = useMemo(() => getUserFormDefaultValues(), [])
 
@@ -64,21 +66,21 @@ const Register = () => {
         <>
           <PageTitleContainer>
             <Typography type='Heading 2' color={COLORS.white}>
-              Register user
+              {t('register_user_text')}
             </Typography>
           </PageTitleContainer>
           <Form form={form} />
           <ButtonContainer onPress={form.handleSubmit(onSubmit)}>
             <Typography type='Heading 2' color={COLORS.white}>
-              Register
+              {t('register_text')}
             </Typography>
           </ButtonContainer>
           {showModal && (
             <CustomModal
-              buttonMessage={messages.register_needed_button}
+              buttonMessage={t('register_needed_button')}
               openModal={showModal}
-              message={messages.register_needed_msg}
-              title={messages.register_needed_title}
+              message={t('register_needed_msg')}
+              title={t('register_needed_title')}
             />
           )}
         </>
