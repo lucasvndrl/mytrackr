@@ -162,6 +162,7 @@ const CustomStackNavigation = ({ initialRouteName, initialParams }: AppRoutesPro
                 <SimpleHeader
                   {...props}
                   closeIcon={true}
+                  languageSelector={true}
                   userIcon={true}
                   onPress={() => props.navigation.pop()}
                 />

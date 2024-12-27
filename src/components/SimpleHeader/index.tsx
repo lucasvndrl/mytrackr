@@ -8,23 +8,34 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../../hooks/Auth'
 import Typography from '../Typography'
+import { useLanguageSelector } from '../../hooks/LanguageSelector'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 type SimpleHeaderProps = {
   onPress: () => void
   closeIcon?: boolean
   userIcon?: boolean
+  languageSelector?: boolean
   options?: { title?: string }
   route?: { params?: { title?: string } }
 }
 
-const SimpleHeader: FC<SimpleHeaderProps> = ({ onPress, closeIcon, options, route, userIcon }) => {
+const SimpleHeader: FC<SimpleHeaderProps> = ({
+  onPress,
+  closeIcon,
+  options,
+  route,
+  userIcon,
+  languageSelector,
+}) => {
   const title = route?.params?.title || options?.title || ' '
   const insets = useSafeAreaInsets()
   const hamburguerMenu = require('../../assets/icons/hamburguerMenu.png')
-  const icon = require('../../assets/icons/back.png')
+  const world = require('../../assets/icons/world.png')
   const user = require('../../assets/icons/user.png')
   const back = require('../../assets/icons/back.png')
   const { navigate } = useNavigation()
+  const { openLanguageModal } = useLanguageSelector()
 
   const { authUser } = useAuth()
 
@@ -42,25 +53,27 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({ onPress, closeIcon, options, rout
       }}
     >
       <RowTextIcon>
-        <Button onPress={onPress}>
-          {closeIcon ? (
-            <Image
-              source={back}
-              style={{
-                width: 30,
-                height: 30,
-              }}
-            />
-          ) : (
-            <Image
-              source={hamburguerMenu}
-              style={{
-                width: 30,
-                height: 30,
-              }}
-            />
-          )}
-        </Button>
+        <AccessibilityHandler accessible>
+          <Button onPress={onPress}>
+            {closeIcon ? (
+              <Image
+                source={back}
+                style={{
+                  width: 30,
+                  height: 30,
+                }}
+              />
+            ) : (
+              <Image
+                source={hamburguerMenu}
+                style={{
+                  width: 30,
+                  height: 30,
+                }}
+              />
+            )}
+          </Button>
+        </AccessibilityHandler>
 
         {title && (
           <View
@@ -77,6 +90,10 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({ onPress, closeIcon, options, rout
         <></>
       ) : (
         <View
+          accessible
+          accessibilityLabel='Profile picture clickable'
+          accessibilityHint='Navigates to Profile screen'
+          accessibilityRole='button'
           style={{
             marginRight: 5,
           }}
@@ -84,6 +101,31 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({ onPress, closeIcon, options, rout
           <TouchableOpacity onPress={() => navigate('Profile' as never)}>
             <Image
               source={authUser.avatar ? { uri: `data:image/jpeg;base64,${authUser.avatar}` } : user}
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 50,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
+
+      {!languageSelector ? (
+        <></>
+      ) : (
+        <View
+          accessible
+          accessibilityLabel='Language selector'
+          accessibilityHint='Navigates to Profile screen'
+          accessibilityRole='button'
+          style={{
+            marginRight: 5,
+          }}
+        >
+          <TouchableOpacity onPress={openLanguageModal}>
+            <Image
+              source={world}
               style={{
                 width: 30,
                 height: 30,

@@ -3,6 +3,7 @@ import { ItemContainer } from './styles'
 import Typography from '../../Typography'
 import { ItemProps } from '..'
 import { SetFieldValue } from 'react-hook-form'
+import AccessibilityHandler from '../../../utils/AccessibilityHandler'
 
 export interface SelectItemProps {
   setItems: SetFieldValue<any>
@@ -28,9 +29,11 @@ const SelectItem = ({ selected, name, items, setItems, id }: SelectItemProps) =>
   // }
 
   return (
-    <ItemContainer selected={selected} onPress={setItems}>
-      <Typography type='Input Label'>{name}</Typography>
-    </ItemContainer>
+    <AccessibilityHandler accessible accessibilityLabel={name}>
+      <ItemContainer selected={selected} onPress={setItems}>
+        <Typography type='Input Label'>{name}</Typography>
+      </ItemContainer>
+    </AccessibilityHandler>
   )
 }
 

@@ -3,6 +3,7 @@ import { render } from '@testing-library/react-native'
 import RecentReviews from './index'
 import { Review as ReviewType } from '../../types/Review'
 import { NavigationContainer } from '@react-navigation/native'
+import '@react-native-async-storage/async-storage'
 
 // Mock dos dados das reviews
 const mockReviews: ReviewType[] = [
@@ -30,6 +31,15 @@ const mockReviews: ReviewType[] = [
   },
 ]
 
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+}))
+jest.mock('react-native-localize', () => ({
+  getLocales: jest.fn(() => [{ languageCode: 'en' }]),
+  findBestAvailableLanguage: jest.fn(),
+}))
+
 describe('RecentReviews Component', () => {
   it('should render the title and reviews', () => {
     const { getByText, getAllByTestId } = render(
@@ -38,7 +48,7 @@ describe('RecentReviews Component', () => {
       </NavigationContainer>,
     )
 
-    expect(getByText('Recent Reviews')).toBeTruthy()
+    expect(getByText('Recent reviews')).toBeTruthy()
 
     const reviewElements = getAllByTestId('review-item')
     expect(reviewElements.length).toBe(mockReviews.length)

@@ -12,6 +12,7 @@ import {
   TitleContainer,
 } from './styles'
 import { useTranslation } from 'react-i18next'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 const Login = () => {
   const { authorize, error } = useAuth0()
@@ -44,21 +45,25 @@ const Login = () => {
         <Loading />
       ) : (
         <>
-          <TitleContainer>
+          <TitleContainer accessible accessibilityLabel={t('acs_app_title')}>
             <Typography type='App Title'>mytrackr</Typography>
           </TitleContainer>
           <ButtonContainer>
-            {/* <Typography type='Heading 2' textAlign='center'>
-          Login
-        </Typography> */}
-            <MessageContainer>
+            <MessageContainer accessible>
               <Typography type='Lead Paragraph' textAlign='center'>
                 {t('login_header')}
               </Typography>
             </MessageContainer>
-            <ActionButton onPress={onLogin}>
-              <Typography type='Button Title'>{t('button_title_login')}</Typography>
-            </ActionButton>
+
+            <AccessibilityHandler
+              accessible
+              accessibilityRole='button'
+              accessibilityHint={t('acs_login_button_hint')}
+            >
+              <ActionButton onPress={onLogin}>
+                <Typography type='Button Title'>{t('button_title_login')}</Typography>
+              </ActionButton>
+            </AccessibilityHandler>
           </ButtonContainer>
         </>
       )}

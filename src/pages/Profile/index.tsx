@@ -13,8 +13,12 @@ import { deleteUser, updateUserDetails } from '../../services/userService'
 import Form from './Form'
 import { ProfileFormData, getUserFormDefaultValues, profileFormSchema } from './Form/schema'
 import { ButtonContainer, ButtonDeleteContainer, Container, PageTitleContainer } from './styles'
-import { ToastAndroid } from 'react-native'
+import { Alert, ToastAndroid } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { useLanguageSelector } from '../../hooks/LanguageSelector'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
+import { useMovies } from '../../hooks/Movies'
 
 export interface UpdateAccount {
   username: string
@@ -28,7 +32,10 @@ const Profile = () => {
   const [userDeleted, setUserDeleted] = useState<boolean>(false)
   const { getCredentials, clearSession } = useAuth0()
   const { authUser, setAuthUser } = useAuth()
+  const { getMovies } = useMovies()
   const { t } = useTranslation()
+  const { closeLanguageModal, languageModalVisible } = useLanguageSelector()
+  const { i18n } = useTranslation()
 
   const userFormDefaultValues = useMemo(
     () =>
@@ -120,6 +127,19 @@ const Profile = () => {
     )
   }
 
+  const handleLanguageChange = async (language: string) => {
+    setIsLoading(true)
+    await i18n.changeLanguage(language).catch((e) => {
+      setIsLoading(false)
+      Alert.alert(t('generic_error'), t('error_changing_language'))
+      return
+    })
+    await AsyncStorage.setItem('language', language)
+    await getMovies()
+    Alert.alert(`${t('generic_success')}`, `${t('success_changing_language')}`)
+    setIsLoading(false)
+  }
+
   return (
     <Container>
       {isLoading ? (
@@ -132,16 +152,34 @@ const Profile = () => {
             </Typography>
           </PageTitleContainer>
           <Form form={form} />
-          <ButtonContainer onPress={form.handleSubmit(onSubmit)} disabled={!hasChanged}>
-            <Typography type='Heading 2' color={COLORS.white}>
-              {hasChanged ? 'Submit changes' : 'Nothing has changed'}
-            </Typography>
-          </ButtonContainer>
+          <AccessibilityHandler
+            accessible
+            accessibilityLabel={t('acs_update_profile_button')}
+            accessibilityHint={t('acs_update_profile_button_hint')}
+          >
+            <ButtonContainer onPress={form.handleSubmit(onSubmit)} disabled={!hasChanged}>
+              <Typography type='Heading 2' color={COLORS.white}>
+                {hasChanged ? t('submit_changes_profile') : t('nothing_has_changed_profile')}
+              </Typography>
+            </ButtonContainer>
+          </AccessibilityHandler>
           <ButtonDeleteContainer onPress={handleAccountDelete}>
             <Typography type='Heading 2' color={COLORS.white}>
               {t('delete_account_text')}
             </Typography>
           </ButtonDeleteContainer>
+          {languageModalVisible && (
+            <CustomModal
+              title={t('select_language_modal_title')}
+              openModal={languageModalVisible}
+              onCloseModal={closeLanguageModal}
+              options={[
+                { label: `${t('language_option_english')}`, value: 'en' },
+                { label: `${t('language_option_portuguese')}`, value: 'pt' },
+              ]}
+              onOptionSelect={handleLanguageChange}
+            />
+          )}
           {showModal && (
             <CustomModal
               buttonMessage={

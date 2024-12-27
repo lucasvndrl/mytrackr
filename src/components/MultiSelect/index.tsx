@@ -14,6 +14,8 @@ import { HelperText } from 'react-native-paper'
 import { getProperty } from '../../utils/object'
 import Typography from '../Typography'
 import { COLORS } from '../../constants/theme'
+import { useTranslation } from 'react-i18next'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 export interface ItemProps {
   selected: boolean
@@ -33,7 +35,7 @@ const MultiSelect = <T extends FieldValues>({ form, name }: MultiSelectProps<T>)
     setValue,
     getValues,
   } = form
-
+  const { t } = useTranslation()
   const handleItemChange = (id: number) => {
     const currentItems = getValues(name) as ItemProps[]
     const updatedItems = currentItems.map((item) =>
@@ -44,10 +46,17 @@ const MultiSelect = <T extends FieldValues>({ form, name }: MultiSelectProps<T>)
 
   return (
     <>
-      <Typography type='Heading 2' color={COLORS.white}>
-        Favorite genres
-      </Typography>
-      <Container>
+      <AccessibilityHandler accessible>
+        <Typography type='Heading 2' color={COLORS.white}>
+          {t('favorite_genres')}
+        </Typography>
+      </AccessibilityHandler>
+
+      <Container
+        accessible
+        accessibilityLabel={t('acs_favorite_genres_selection')}
+        accessibilityHint={t('acs_favorite_genres_selection_hint')}
+      >
         <Controller
           control={control}
           name={name}
@@ -66,7 +75,11 @@ const MultiSelect = <T extends FieldValues>({ form, name }: MultiSelectProps<T>)
           }}
         />
       </Container>
-      <HelperText type='error'>{getProperty<FieldError>(errors, name)?.message ?? ' '}</HelperText>
+      <AccessibilityHandler accessible>
+        <HelperText type='error'>
+          {getProperty<FieldError>(errors, name)?.message ?? ' '}
+        </HelperText>
+      </AccessibilityHandler>
     </>
   )
 }

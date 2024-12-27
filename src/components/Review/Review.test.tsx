@@ -4,6 +4,7 @@ import { Review as ReviewType } from '../../types/Review'
 import { NavigationContainer } from '@react-navigation/native'
 import { useNavigation } from '@react-navigation/native'
 import Review from '.'
+import '@react-native-async-storage/async-storage'
 
 const mockReview: ReviewType = {
   movie_id: '1',
@@ -26,6 +27,14 @@ jest.mock('@react-navigation/native', () => {
     }),
   }
 })
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+}))
+jest.mock('react-native-localize', () => ({
+  getLocales: jest.fn(() => [{ languageCode: 'en' }]),
+  findBestAvailableLanguage: jest.fn(),
+}))
 describe('Review Component', () => {
   it('should render the reviewer avatar, name, and review text', () => {
     const { getByText, getByTestId } = render(

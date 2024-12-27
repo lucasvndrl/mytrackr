@@ -3,6 +3,7 @@ import { KeyboardTypeOptions } from 'react-native'
 import MaskInput, { Mask } from 'react-native-mask-input'
 import { HelperText, TextInput as Input } from 'react-native-paper'
 import { getProperty } from '../../utils/object'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 interface TextInputProps<T extends FieldValues> {
   form: UseFormReturn<T>
@@ -53,9 +54,11 @@ const TextInput = <T extends FieldValues>({
             numberOfLines={numberOfLines}
             placeholder={placeholder}
           />
-          <HelperText type='error'>
-            {getProperty<FieldError>(errors, name)?.message ?? ' '}
-          </HelperText>
+          <AccessibilityHandler accessible>
+            <HelperText type='error'>
+              {getProperty<FieldError>(errors, name)?.message ?? ' '}
+            </HelperText>
+          </AccessibilityHandler>
         </>
       )}
     />

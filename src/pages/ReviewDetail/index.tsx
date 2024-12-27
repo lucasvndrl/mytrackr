@@ -18,6 +18,7 @@ import {
   ReviewContainer,
 } from './styles'
 import { useTranslation } from 'react-i18next'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 const ReviewDetail = () => {
   const { params } = useRoute<RouteProp<ScreenParamList, 'ReviewDetail'>>()
@@ -40,30 +41,46 @@ const ReviewDetail = () => {
       <ReviewContainer>
         <ContentContainer>
           <ProfileName>
-            <ProfileIcon
-              source={
-                review.reviewer_avatar
-                  ? { uri: `data:image/jpeg;base64,${review.reviewer_avatar}` }
-                  : defaultAvatar
-              }
-            />
-            <Typography fontSize={SIZES.large}>{review.reviewer_name}</Typography>
+            <AccessibilityHandler
+              accessible
+              accessibilityLabel={t('acs_review_profile_picture')}
+              accessibilityHint={t('acs_review_profile_picture_hint')}
+            >
+              <ProfileIcon
+                source={
+                  review.reviewer_avatar
+                    ? { uri: `data:image/jpeg;base64,${review.reviewer_avatar}` }
+                    : defaultAvatar
+                }
+              />
+            </AccessibilityHandler>
+            <AccessibilityHandler accessible>
+              <Typography fontSize={SIZES.large}>{review.reviewer_name}</Typography>
+            </AccessibilityHandler>
           </ProfileName>
           <MovieTitleRow>
-            <Typography fontSize={SIZES.large} fontWeight='Bold'>
-              {review.movie_title}
-            </Typography>
+            <AccessibilityHandler accessible>
+              <Typography fontSize={SIZES.large} fontWeight='Bold'>
+                {review.movie_title}
+              </Typography>
+            </AccessibilityHandler>
           </MovieTitleRow>
-          <StarRatingDisplay rating={review.rating} />
+          <AccessibilityHandler accessible accessibilityLabel={t('acs_movie_rating')}>
+            <StarRatingDisplay rating={review.rating} />
+          </AccessibilityHandler>
           <Spacing height={5} />
           {/* <Typography fontSize={SIZES.medium}>{}</Typography> */}
           <Spacing height={5} />
-          <Typography fontSize={SIZES.medium} lineHeight={12}>
-            {review.review_text}
-          </Typography>
+          <AccessibilityHandler accessible accessibilityLabel={t('acs_review_text')}>
+            <Typography fontSize={SIZES.medium} lineHeight={12}>
+              {review.review_text}
+            </Typography>
+          </AccessibilityHandler>
         </ContentContainer>
         <MovieCoverContainer>
-          <ImageItem source={review.movie_poster ? review.movie_poster : defaultPoster} />
+          <AccessibilityHandler accessible accessibilityLabel={t('acs_movie_poster')}>
+            <ImageItem source={review.movie_poster ? review.movie_poster : defaultPoster} />
+          </AccessibilityHandler>
         </MovieCoverContainer>
       </ReviewContainer>
       <Spacing height={10} />

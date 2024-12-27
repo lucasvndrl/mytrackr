@@ -6,7 +6,8 @@ import { useAuth0 } from 'react-native-auth0'
 import { useAuth } from '../hooks/Auth'
 import { useMovies } from '../hooks/Movies'
 import Homepage from '../pages/Homepage'
-
+import '@react-native-async-storage/async-storage'
+import * as translations from '../locales/en/translation.json'
 jest.mock('../hooks/Auth')
 jest.mock('react-native-auth0')
 jest.mock('../hooks/Movies')
@@ -15,7 +16,23 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
 }))
 jest.spyOn(ToastAndroid, 'showWithGravityAndOffset')
-
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+}))
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string) => key,
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+    },
+    initReactI18next: { type: '3rdParty', init: jest.fn() },
+  }),
+}))
+jest.mock('react-native-localize', () => ({
+  getLocales: jest.fn(() => [{ languageCode: 'en' }]),
+  findBestAvailableLanguage: jest.fn(),
+}))
 describe('Homepage', () => {
   const mockNavigate = jest.fn()
   const mockGetCredentials = jest.fn()

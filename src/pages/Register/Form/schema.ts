@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { User } from '../../../types/User'
 import { defaultGenresValues } from './defaultGenresValues'
+import i18n from '../../../../i18n'
 
 const itemPropsSchema = z.object({
   selected: z.boolean(),
@@ -10,13 +11,16 @@ const itemPropsSchema = z.object({
 
 const schema = z.object({
   avatar: z.string().optional(),
-  username: z.string().min(5).max(20, {
-    message: 'Username must be between 5 and 20 characters',
-  }),
+  username: z
+    .string()
+    .min(5)
+    .max(20, {
+      message: i18n.t('zod_error_username'),
+    }),
   favorite_genres: z
     .array(itemPropsSchema)
     .refine((value) => value.some((genre) => genre.selected), {
-      message: 'You must select at least one genre',
+      message: i18n.t('zod_error_genres'),
     }),
 })
 

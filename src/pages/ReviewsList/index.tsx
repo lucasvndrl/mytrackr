@@ -20,7 +20,7 @@ const ReviewsList = () => {
     }
   }, [])
   return (
-    <Container>
+    <Container accessible accessibilityLabel={t('acs_reviews_list')}>
       {reviews.map((review) => {
         return <Review review={review} showFullInfo={true} key={review.review_id} />
       })}

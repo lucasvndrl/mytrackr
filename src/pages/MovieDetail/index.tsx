@@ -28,6 +28,7 @@ import {
   SummaryContainer,
 } from './styles'
 import { useTranslation } from 'react-i18next'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 const MovieDetail = () => {
   const [loading, setLoading] = React.useState<boolean>(true)
@@ -48,7 +49,7 @@ const MovieDetail = () => {
       setMovieReviews(reviewsByMovieId)
     } else {
       setLoading(false)
-      Alert.alert('There has been an error recovering movie details')
+      Alert.alert(t('error_recovering_movie_details'))
       navigation.goBack()
     }
     setLoading(false)
@@ -70,62 +71,89 @@ const MovieDetail = () => {
           <HeaderView>
             <LeftContainer>
               <ImageItem source={movie.poster} />
-              <OptionButton onPress={() => navigation.navigate('WriteReview', { movie: movie })}>
-                <OptionIcon source={require('../../assets/icons/review-icon.png')} />
-                <Typography fontSize={SIZES.large} fontWeight='Semibold' color='black'>
-                  {t('rate_or_review_text')}
-                </Typography>
-              </OptionButton>
+              <AccessibilityHandler
+                accessible
+                accessibilityLabel={t('acs_add_review_button')}
+                accessibilityHint={t('acs_add_review_button_hint')}
+              >
+                <OptionButton onPress={() => navigation.navigate('WriteReview', { movie: movie })}>
+                  <OptionIcon source={require('../../assets/icons/review-icon.png')} />
+                  <Typography fontSize={SIZES.large} fontWeight='Semibold' color='black'>
+                    {t('rate_or_review_text')}
+                  </Typography>
+                </OptionButton>
+              </AccessibilityHandler>
             </LeftContainer>
             <RightContainer>
               <MovieTitleContainer>
-                <Typography color={COLORS.white} fontSize={SIZES.large} fontWeight='Bold'>
-                  {movie.title}
-                </Typography>
-
-                <Typography color={COLORS.white} fontSize={SIZES.small} fontWeight='Semibold'>
-                  {movie.duration} min
-                </Typography>
+                <AccessibilityHandler accessible>
+                  <Typography color={COLORS.white} fontSize={SIZES.large} fontWeight='Bold'>
+                    {movie.title}
+                  </Typography>
+                </AccessibilityHandler>
+                <AccessibilityHandler accessible>
+                  <Typography color={COLORS.white} fontSize={SIZES.small} fontWeight='Semibold'>
+                    {movie.duration} min
+                  </Typography>
+                </AccessibilityHandler>
               </MovieTitleContainer>
               <DirectorContainer>
-                <Typography fontSize={SIZES.medium} fontWeight='Semibold'>
-                  {t('directed_by_text')}
-                </Typography>
+                <AccessibilityHandler accessible>
+                  <Typography fontSize={SIZES.medium} fontWeight='Semibold'>
+                    {t('directed_by_text')}
+                  </Typography>
+                </AccessibilityHandler>
                 <Spacing width={5} />
-                <Typography fontSize={SIZES.medium} fontWeight='Bold'>
-                  {movie.directed_by}
-                </Typography>
+                <AccessibilityHandler accessible>
+                  <Typography fontSize={SIZES.medium} fontWeight='Bold'>
+                    {movie.directed_by}
+                  </Typography>
+                </AccessibilityHandler>
               </DirectorContainer>
               <SummaryContainer>
-                <Typography fontSize={SIZES.medium} lineHeight={15}>
-                  {movie.synopsis}
-                </Typography>
+                <AccessibilityHandler accessible>
+                  <Typography fontSize={SIZES.medium} lineHeight={15}>
+                    {movie.synopsis}
+                  </Typography>
+                </AccessibilityHandler>
               </SummaryContainer>
               <Spacing height={20} />
               <RatingsContainer>
-                <Typography>{t('reviews_text')}</Typography>
+                <AccessibilityHandler accessible>
+                  <Typography>{t('reviews_text')}</Typography>
+                </AccessibilityHandler>
                 <Spacing height={10} />
-                <Typography fontSize={SIZES.xLarge} fontWeight='Regular'>
-                  {movie.rating}
-                </Typography>
+                <AccessibilityHandler accessible>
+                  <Typography fontSize={SIZES.xLarge} fontWeight='Regular'>
+                    {movie.rating}
+                  </Typography>
+                </AccessibilityHandler>
                 <StarRatingDisplay rating={movie.rating} />
               </RatingsContainer>
             </RightContainer>
           </HeaderView>
           <AllReviewsRow>
-            <Typography fontSize={SIZES.medium} fontWeight='Bold'>
-              {t('all_reviews_text')}
-            </Typography>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ReviewsList', { reviews: movieReviews })}
-            >
-              <Typography fontSize={SIZES.medium} fontWeight='Semibold'>
-                {t('see_all_text')}
+            <AccessibilityHandler accessible>
+              <Typography fontSize={SIZES.medium} fontWeight='Bold'>
+                {t('all_reviews_text')}
               </Typography>
-            </TouchableOpacity>
+            </AccessibilityHandler>
+            <AccessibilityHandler
+              accessible
+              accessibilityLabel={t('see_all_text')}
+              accessibilityHint={t('acs_see_all_text_hint')}
+            >
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ReviewsList', { reviews: movieReviews })}
+              >
+                <Typography fontSize={SIZES.medium} fontWeight='Semibold'>
+                  {t('see_all_text')}
+                </Typography>
+              </TouchableOpacity>
+            </AccessibilityHandler>
           </AllReviewsRow>
           <LineItem />
-          <ReviewContainer>
+          <ReviewContainer accessible accessibilityLabel={`${t('acs_reviews_for')} ${movie.title}`}>
             {movieReviews.map((review) => {
               return <Review review={review} showFullInfo={true} key={review.review_id} />
             })}

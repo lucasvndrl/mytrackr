@@ -29,6 +29,7 @@ import { ActivityIndicator } from 'react-native-paper'
 import CustomModal from '../../components/CustomModal'
 import { messages } from '../../constants/messages'
 import { useTranslation } from 'react-i18next'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 const WriteReview = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -86,27 +87,37 @@ const WriteReview = () => {
         />
       )}
       <HeaderView>
-        <LeftContainer>
+        <LeftContainer accessible accessibilityLabel={t('acs_write_review_left_container')}>
           <MovieTitleContainer>
-            <Typography color={COLORS.white} fontSize={SIZES.large} fontWeight='Bold'>
-              {movie.title}
-            </Typography>
-            <Typography color={COLORS.white} fontSize={SIZES.medium} fontWeight='Semibold'>
-              {movie.directed_by}
-            </Typography>
-            <Typography color={COLORS.white} fontSize={SIZES.medium} fontWeight='Semibold'>
-              {movie.duration}mins
-            </Typography>
+            <AccessibilityHandler accessible>
+              <Typography color={COLORS.white} fontSize={SIZES.large} fontWeight='Bold'>
+                {movie.title}
+              </Typography>
+            </AccessibilityHandler>
+            <AccessibilityHandler accessible>
+              <Typography color={COLORS.white} fontSize={SIZES.medium} fontWeight='Semibold'>
+                {movie.directed_by}
+              </Typography>
+            </AccessibilityHandler>
+            <AccessibilityHandler accessible>
+              <Typography color={COLORS.white} fontSize={SIZES.medium} fontWeight='Semibold'>
+                {movie.duration}mins
+              </Typography>
+            </AccessibilityHandler>
           </MovieTitleContainer>
-          <StatsContainer>
+          <StatsContainer accessible accessibilityLabel={t('acs_movie_rating')}>
             <StarRatingInput form={form} name='rating' starSize={30} />
           </StatsContainer>
         </LeftContainer>
         <RightContainer>
-          <ImageItem source={movie.poster} />
+          <AccessibilityHandler accessible accessibilityLabel={t('acs_movie_poster')}>
+            <ImageItem source={movie.poster} />
+          </AccessibilityHandler>
         </RightContainer>
       </HeaderView>
       <View
+        accessible
+        accessibilityLabel={t('acs_write_review_text_input')}
         style={{
           padding: 20,
         }}
@@ -121,7 +132,7 @@ const WriteReview = () => {
           placeholder={t('write_down_review_placeholder')}
         />
       </View>
-      <ButtonContainer>
+      <ButtonContainer accessible accessibilityLabel={t('acs_submit_review_button')}>
         <Button onPress={form.handleSubmit(onSubmit)}>
           <Typography color={COLORS.white} fontSize={SIZES.xLarge} fontWeight='Bold'>
             {isLoading ? <ActivityIndicator /> : t('done_message')}

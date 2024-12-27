@@ -3,8 +3,8 @@ import { render, fireEvent, screen } from '@testing-library/react-native'
 import PopularMovies from './index'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { Movie } from '../../../types/Movie'
+import '@react-native-async-storage/async-storage'
 
-// Mock da função de navegação
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
 }))
@@ -32,6 +32,19 @@ const mockMovies: Movie[] = [
   },
 ]
 
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+}))
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string) => key,
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+    },
+    initReactI18next: { type: '3rdParty', init: jest.fn() },
+  }),
+}))
 describe('PopularMovies Component', () => {
   it('should render the title and movies', () => {
     ;(useNavigation as jest.Mock).mockReturnValue({ navigate: mockedNavigate })

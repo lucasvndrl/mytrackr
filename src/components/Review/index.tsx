@@ -15,6 +15,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import Spacing from '../Spacing'
 import { useAuth } from '../../hooks/Auth'
 import { useTranslation } from 'react-i18next'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 interface ReviewProps {
   review: ReviewType
@@ -28,46 +29,56 @@ const Review = ({ review, showFullInfo, testID }: ReviewProps) => {
   const { t } = useTranslation()
   const defaultAvatar = require('../../assets/icons/user.png')
   return (
-    <Container
-      onPress={() =>
-        navigate.navigate('ReviewDetail', {
-          review,
-        })
-      }
-      testID={testID}
+    <AccessibilityHandler
+      accessible
+      accessibilityLabel={t('acs_review_item')}
+      accessibilityHint={t('acs_review_item_hint')}
     >
-      <ReviewRow>
-        <ProfilePictureRow>
-          <ProfileIcon
-            testID='reviewer-avatar'
-            source={
-              review.reviewer_avatar
-                ? { uri: `data:image/jpeg;base64,${review.reviewer_avatar}` }
-                : defaultAvatar
-            }
-          />
-        </ProfilePictureRow>
-        <CommentSection>
-          {showFullInfo == true ? (
-            <Typography type='Paragraph' color={COLORS.white}>
-              {review.movie_title}
+      <Container
+        onPress={() =>
+          navigate.navigate('ReviewDetail', {
+            review,
+          })
+        }
+        testID={testID}
+      >
+        <ReviewRow>
+          <ProfilePictureRow>
+            <ProfileIcon
+              testID='reviewer-avatar'
+              source={
+                review.reviewer_avatar
+                  ? { uri: `data:image/jpeg;base64,${review.reviewer_avatar}` }
+                  : defaultAvatar
+              }
+            />
+          </ProfilePictureRow>
+          <CommentSection>
+            {showFullInfo == true ? (
+              <Typography type='Paragraph' color={COLORS.white}>
+                {review.movie_title}
+              </Typography>
+            ) : (
+              <Spacing height={5} />
+            )}
+            <Typography type='Small paragraph' color={COLORS.green}>
+              {review.reviewer_name}
             </Typography>
+            <Typography type='Small paragraph' color={COLORS.white} textAlign='justify'>
+              {review.review_text}
+            </Typography>
+            <Typography type='Small paragraph' color={COLORS.primaryPurple}>
+              {t('read_more_text')}
+            </Typography>
+          </CommentSection>
+          {showFullInfo == true ? (
+            <ImageItem source={review.movie_poster} />
           ) : (
-            <Spacing height={5} />
+            <Spacing width={30} />
           )}
-          <Typography type='Small paragraph' color={COLORS.green}>
-            {review.reviewer_name}
-          </Typography>
-          <Typography type='Small paragraph' color={COLORS.white} textAlign='justify'>
-            {review.review_text}
-          </Typography>
-          <Typography type='Small paragraph' color={COLORS.primaryPurple}>
-            {t('read_more_text')}
-          </Typography>
-        </CommentSection>
-        {showFullInfo == true ? <ImageItem source={review.movie_poster} /> : <Spacing width={30} />}
-      </ReviewRow>
-    </Container>
+        </ReviewRow>
+      </Container>
+    </AccessibilityHandler>
   )
 }
 

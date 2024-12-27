@@ -1,8 +1,8 @@
 type MoviesContextData = {
   movies: Movie[]
-  getMovies: (accessToken: string) => Promise<boolean>
+  getMovies: () => Promise<boolean>
   reviews: Review[]
-  getReviews: (accessToken: string) => Promise<boolean>
+  getReviews: () => Promise<boolean>
 }
 
 type UseMovies = () => MoviesContextData

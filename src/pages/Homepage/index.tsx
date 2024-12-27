@@ -21,12 +21,8 @@ const Homepage = () => {
   const { t } = useTranslation()
 
   const loadData = async () => {
-    const userToken = await getCredentials().then((res: any) => {
-      return res.accessToken
-    })
-
-    await getMovies(userToken)
-    await getReviews(userToken)
+    await getMovies()
+    await getReviews()
   }
 
   useEffect(() => {
@@ -40,7 +36,7 @@ const Homepage = () => {
 
   const showToastLoggedIn = () => {
     ToastAndroid.showWithGravityAndOffset(
-      messages.toast_user_logged_in,
+      t('toast_user_logged_in'),
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
       25,
@@ -58,17 +54,17 @@ const Homepage = () => {
   return (
     <>
       {isRefreshing ? (
-        <Loading activityIndicator={false} loadingText='Refreshing...' />
+        <Loading activityIndicator={false} loadingText={t('refreshing_message')} />
       ) : (
         <>
-          <Container>
+          <Container accessible>
             <ScrollView
               testID='main-scrollview'
               refreshControl={
                 <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
               }
             >
-              <TitleContainer>
+              <TitleContainer accessible>
                 <Typography type='Heading 1' color={COLORS.white}>
                   {t('homepage_welcome_message')},{' '}
                   {authUser.login ? authUser.login : t('homepage_welcome_generic_name')}!

@@ -41,7 +41,7 @@ const AuthProvider = ({ children, authUserState }: AuthProviderProps) => {
     const result = await getUserDetails(userToken)
 
     if (result?.status == 200) {
-      await getMovies(userToken)
+      await getMovies()
       setAuthUser(() => ({
         logged: true,
         login: result.data.username,

@@ -11,6 +11,7 @@ import {
   TitleContainer,
 } from './styles'
 import { useTranslation } from 'react-i18next'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 const LandPage = () => {
   const navigation = useNavigation()
@@ -25,14 +26,19 @@ const LandPage = () => {
         </TitleContainer>
       </ImageBanner>
       <ButtonContainer>
-        <MessageContainer>
+        <MessageContainer accessible accessibilityLabel={t('land_page_text')}>
           <Typography type='Heading 2' textAlign='center'>
             {t('land_page_text')}
           </Typography>
         </MessageContainer>
-        <ActionButton onPress={() => navigation.navigate('Login' as never)}>
-          <Typography type='Button Title'>{t('land_page_get_started')}</Typography>
-        </ActionButton>
+        <AccessibilityHandler
+          accessibilityLabel={t('acs_login_button')}
+          accessibilityHint={t('acs_login_button_hint')}
+        >
+          <ActionButton onPress={() => navigation.navigate('Login' as never)}>
+            <Typography type='Button Title'>{t('land_page_get_started')}</Typography>
+          </ActionButton>
+        </AccessibilityHandler>
       </ButtonContainer>
     </Container>
   )

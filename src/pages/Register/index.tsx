@@ -12,6 +12,7 @@ import { ButtonContainer, Container, PageTitleContainer } from './styles'
 import CustomModal from '../../components/CustomModal'
 import { messages } from '../../constants/messages'
 import { useTranslation } from 'react-i18next'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -65,16 +66,26 @@ const Register = () => {
       ) : (
         <>
           <PageTitleContainer>
-            <Typography type='Heading 2' color={COLORS.white}>
-              {t('register_user_text')}
-            </Typography>
+            <AccessibilityHandler accessible>
+              <Typography type='Heading 2' color={COLORS.white}>
+                {t('register_user_text')}
+              </Typography>
+            </AccessibilityHandler>
           </PageTitleContainer>
           <Form form={form} />
-          <ButtonContainer onPress={form.handleSubmit(onSubmit)}>
-            <Typography type='Heading 2' color={COLORS.white}>
-              {t('register_text')}
-            </Typography>
-          </ButtonContainer>
+          <AccessibilityHandler
+            accessible
+            accessibilityLabel={t('acs_register_user_button')}
+            accessibilityHint={t('acs_register_user_button_hint')}
+          >
+            <ButtonContainer onPress={form.handleSubmit(onSubmit)}>
+              <AccessibilityHandler accessible>
+                <Typography type='Heading 2' color={COLORS.white}>
+                  {t('register_text')}
+                </Typography>
+              </AccessibilityHandler>
+            </ButtonContainer>
+          </AccessibilityHandler>
           {showModal && (
             <CustomModal
               buttonMessage={t('register_needed_button')}

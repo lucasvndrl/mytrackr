@@ -4,6 +4,9 @@ import { posters } from '../../utils/posterRelation'
 import { Movie } from '../../types/Movie'
 import { Review } from '../../types/Review'
 import { ReviewsTable, getAllReviews } from '../../services/reviewsService'
+import axios from 'axios'
+import i18n from '../../../i18n'
+import { useAuth0 } from 'react-native-auth0'
 
 type MoviesProviderProps = {
   children: ReactNode
@@ -11,13 +14,15 @@ type MoviesProviderProps = {
   reviewsInitialState?: Review[]
 }
 
+const GOOGLE_TRANSLATE_API_URL = 'https://translate.googleapis.com/translate_a/single'
+
 export const MoviesContext = createContext({
   movies: [] as Movie[],
-  getMovies: async (accessToken: string): Promise<boolean> => {
+  getMovies: async (): Promise<boolean> => {
     return false
   },
   reviews: [] as Review[],
-  getReviews: async (accessToken: string): Promise<boolean> => {
+  getReviews: async (): Promise<boolean> => {
     return false
   },
 })
@@ -29,11 +34,13 @@ const MoviesProvider = ({
 }: MoviesProviderProps) => {
   const [movies, setMovies] = useState<Movie[]>(moviesInitialState || [])
   const [reviews, setReviews] = useState<Review[]>(reviewsInitialState || [])
+  const { getCredentials } = useAuth0()
 
-  const getMovies = async (accessToken: string): Promise<boolean> => {
+  const getMovies = async (): Promise<boolean> => {
+    const accessToken = await getAccessToken()
     const response = await getAllMovies(accessToken)
     if (response?.status === 200) {
-      const transformedResponse = transformMoviesResponse(response.data)
+      const transformedResponse = await transformMoviesResponse(response.data)
       setMovies(transformedResponse)
       return true
     }
@@ -41,21 +48,27 @@ const MoviesProvider = ({
     return false
   }
 
-  const transformMoviesResponse = (movies: MoviesTable[]) => {
-    return movies.map((movie) => ({
-      movie_id: movie.movie_id,
-      title: movie.title,
-      synopsis: movie.synopsis,
-      directed_by: movie.directed_by,
-      duration: movie.duration,
-      rating: movie.rating,
-      poster:
-        posters.find((poster) => poster.movieId === movie.movie_id)?.img ||
-        require('../../assets/images/default-movie.png'),
-    }))
+  const transformMoviesResponse = async (movies: MoviesTable[]) => {
+    const targetLang = i18n.language
+    const transformedMovies = await Promise.all(
+      movies.map(async (movie) => ({
+        movie_id: movie.movie_id,
+        title: movie.title,
+        synopsis: movie.synopsis,
+        directed_by: movie.directed_by,
+        duration: movie.duration,
+        rating: movie.rating,
+        poster:
+          posters.find((poster) => poster.movieId === movie.movie_id)?.img ||
+          require('../../assets/images/default-movie.png'),
+      })),
+    )
+
+    return transformedMovies
   }
 
-  const getReviews = async (accessToken: string): Promise<boolean> => {
+  const getReviews = async (): Promise<boolean> => {
+    const accessToken = await getAccessToken()
     const response = await getAllReviews(accessToken)
     if (response?.status === 200) {
       const transformedResponse = transformReviewsResponse(response.data)
@@ -80,6 +93,11 @@ const MoviesProvider = ({
         posters.find((poster) => poster.movieId === review.movie_id)?.img ||
         require('../../assets/images/default-movie.png'),
     }))
+  }
+
+  const getAccessToken = async () => {
+    const credentials = await getCredentials()
+    return credentials?.accessToken || ''
   }
 
   return (
