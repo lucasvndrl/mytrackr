@@ -32,7 +32,7 @@ const LandPage = () => {
           </Typography>
         </MessageContainer>
         <AccessibilityHandler
-          accessibilityLabel={t('acs_login_button')}
+          accessibilityRole='button'
           accessibilityHint={t('acs_login_button_hint')}
         >
           <ActionButton onPress={() => navigation.navigate('Login' as never)}>

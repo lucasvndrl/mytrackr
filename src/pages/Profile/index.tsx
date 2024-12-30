@@ -6,7 +6,6 @@ import { useAuth0 } from 'react-native-auth0'
 import CustomModal from '../../components/CustomModal'
 import Loading from '../../components/Loading'
 import Typography from '../../components/Typography'
-import { messages } from '../../constants/messages'
 import { COLORS } from '../../constants/theme'
 import { useAuth } from '../../hooks/Auth'
 import { deleteUser, updateUserDetails } from '../../services/userService'
@@ -119,7 +118,7 @@ const Profile = () => {
 
   const showToastUserUpdated = () => {
     ToastAndroid.showWithGravityAndOffset(
-      messages.toast_user_updated_successfully,
+      t('toast_user_updated_successfully'),
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
       25,
@@ -154,7 +153,7 @@ const Profile = () => {
           <Form form={form} />
           <AccessibilityHandler
             accessible
-            accessibilityLabel={t('acs_update_profile_button')}
+            accessibilityRole='button'
             accessibilityHint={t('acs_update_profile_button_hint')}
           >
             <ButtonContainer onPress={form.handleSubmit(onSubmit)} disabled={!hasChanged}>
@@ -163,11 +162,14 @@ const Profile = () => {
               </Typography>
             </ButtonContainer>
           </AccessibilityHandler>
-          <ButtonDeleteContainer onPress={handleAccountDelete}>
-            <Typography type='Heading 2' color={COLORS.white}>
-              {t('delete_account_text')}
-            </Typography>
-          </ButtonDeleteContainer>
+          <AccessibilityHandler accessibilityRole='button' accessible>
+            <ButtonDeleteContainer onPress={handleAccountDelete}>
+              <Typography type='Heading 2' color={COLORS.white}>
+                {t('delete_account_text')}
+              </Typography>
+            </ButtonDeleteContainer>
+          </AccessibilityHandler>
+
           {languageModalVisible && (
             <CustomModal
               title={t('select_language_modal_title')}

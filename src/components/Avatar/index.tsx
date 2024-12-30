@@ -2,6 +2,8 @@ import * as ImagePicker from 'expo-image-picker'
 import React from 'react'
 import { Controller, FieldValues, Path, UseFormReturn } from 'react-hook-form'
 import { IconContainer, IconRow, IconView } from './styles'
+import AccessibilityHandler from '../../utils/AccessibilityHandler'
+import { useTranslation } from 'react-i18next'
 
 interface AvatarProps<T extends FieldValues> {
   form: UseFormReturn<T>
@@ -13,6 +15,7 @@ const Avatar = <T extends FieldValues>({ form, name }: AvatarProps<T>) => {
     control,
     formState: { errors },
   } = form
+  const { t } = useTranslation()
 
   const pickImageAsync = async (onChange: (value: string) => void) => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -35,13 +38,20 @@ const Avatar = <T extends FieldValues>({ form, name }: AvatarProps<T>) => {
         return (
           <>
             <IconRow>
-              <IconContainer onPress={() => pickImageAsync(onChange)}>
-                <IconView
-                  source={{
-                    uri: value ? `data:image/jpeg;base64,${value}` : undefined,
-                  }}
-                />
-              </IconContainer>
+              <AccessibilityHandler
+                accessible
+                accessibilityRole='button'
+                accessibilityLabel={t('acs_review_profile_picture')}
+                accessibilityHint={t('acs_avatar_update_hint')}
+              >
+                <IconContainer onPress={() => pickImageAsync(onChange)}>
+                  <IconView
+                    source={{
+                      uri: value ? `data:image/jpeg;base64,${value}` : undefined,
+                    }}
+                  />
+                </IconContainer>
+              </AccessibilityHandler>
             </IconRow>
           </>
         )

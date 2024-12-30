@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { useNavigation } from '@react-navigation/native'
 import Review from '.'
 import '@react-native-async-storage/async-storage'
+import { customRender } from '../../utils/customRender'
 
 const mockReview: ReviewType = {
   movie_id: '1',
@@ -37,7 +38,7 @@ jest.mock('react-native-localize', () => ({
 }))
 describe('Review Component', () => {
   it('should render the reviewer avatar, name, and review text', () => {
-    const { getByText, getByTestId } = render(
+    const { getByText, getByTestId } = customRender(
       <NavigationContainer>
         <Review review={mockReview} showFullInfo={true} />
       </NavigationContainer>,
@@ -53,7 +54,7 @@ describe('Review Component', () => {
   })
 
   it('should navigate to ReviewDetail on button press', async () => {
-    const { getByTestId } = render(
+    const { getByTestId } = customRender(
       <NavigationContainer>
         <Review review={mockReview} showFullInfo={true} testID='navigate-button' />
       </NavigationContainer>,

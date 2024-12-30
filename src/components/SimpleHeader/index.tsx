@@ -10,6 +10,7 @@ import { useAuth } from '../../hooks/Auth'
 import Typography from '../Typography'
 import { useLanguageSelector } from '../../hooks/LanguageSelector'
 import AccessibilityHandler from '../../utils/AccessibilityHandler'
+import { useTranslation } from 'react-i18next'
 
 type SimpleHeaderProps = {
   onPress: () => void
@@ -36,6 +37,7 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({
   const back = require('../../assets/icons/back.png')
   const { navigate } = useNavigation()
   const { openLanguageModal } = useLanguageSelector()
+  const { t } = useTranslation()
 
   const { authUser } = useAuth()
 
@@ -89,16 +91,15 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({
       {userIcon ? (
         <></>
       ) : (
-        <View
-          accessible
-          accessibilityLabel='Profile picture clickable'
-          accessibilityHint='Navigates to Profile screen'
-          accessibilityRole='button'
-          style={{
-            marginRight: 5,
-          }}
-        >
-          <TouchableOpacity onPress={() => navigate('Profile' as never)}>
+        <TouchableOpacity onPress={() => navigate('Profile' as never)}>
+          <View
+            accessible
+            accessibilityHint={t('acs_clickable_profile_picture_hint')}
+            accessibilityRole='button'
+            style={{
+              marginRight: 5,
+            }}
+          >
             <Image
               source={authUser.avatar ? { uri: `data:image/jpeg;base64,${authUser.avatar}` } : user}
               style={{
@@ -107,23 +108,22 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({
                 borderRadius: 50,
               }}
             />
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       )}
 
       {!languageSelector ? (
         <></>
       ) : (
-        <View
-          accessible
-          accessibilityLabel='Language selector'
-          accessibilityHint='Navigates to Profile screen'
-          accessibilityRole='button'
-          style={{
-            marginRight: 5,
-          }}
-        >
-          <TouchableOpacity onPress={openLanguageModal}>
+        <TouchableOpacity onPress={openLanguageModal}>
+          <View
+            accessible
+            accessibilityHint={t('acs_change_language_option')}
+            accessibilityRole='button'
+            style={{
+              marginRight: 5,
+            }}
+          >
             <Image
               source={world}
               style={{
@@ -132,8 +132,8 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({
                 borderRadius: 50,
               }}
             />
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       )}
     </View>
   )

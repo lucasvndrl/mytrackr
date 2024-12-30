@@ -12,7 +12,7 @@ export interface MoviesTable {
 export const getAllMovies = async (
   accessToken: string,
 ): Promise<AxiosResponse<MoviesTable[]> | undefined> => {
-  const response = await axios.get(`https://459f-170-78-98-225.ngrok-free.app/movies/`, {
+  const response = await axios.get(`https://1ee7-170-78-98-160.ngrok-free.app/movies/`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

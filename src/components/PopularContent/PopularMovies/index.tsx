@@ -16,7 +16,7 @@ const PopularMovies = ({ movies }: PopularMoviesProps) => {
   const navigate = useNavigation<NavigationProp<ScreenParamList, 'MovieDetail'>>()
   const { t } = useTranslation()
   return (
-    <Container accessible accessibilityLabel='Popular movies'>
+    <Container>
       <Typography type='Paragraph' color={COLORS.white}>
         {t('popular_movies_this_month')}
       </Typography>
@@ -24,7 +24,7 @@ const PopularMovies = ({ movies }: PopularMoviesProps) => {
         {movies.map((movie, index) => (
           <AccessibilityHandler
             accessible
-            accessibilityLabel={t('acs_movie_poster_clickable')}
+            accessibilityRole='button'
             accessibilityHint={t('acs_movie_poster_clickable_hint')}
             key={index}
           >

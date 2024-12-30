@@ -6,7 +6,6 @@ import Loading from '../../components/Loading'
 import PopularMovies from '../../components/PopularContent/PopularMovies'
 import RecentReviews from '../../components/RecentReviews'
 import Typography from '../../components/Typography'
-import { messages } from '../../constants/messages'
 import { COLORS } from '../../constants/theme'
 import { useAuth } from '../../hooks/Auth'
 import { useMovies } from '../../hooks/Movies'
@@ -21,8 +20,13 @@ const Homepage = () => {
   const { t } = useTranslation()
 
   const loadData = async () => {
-    await getMovies()
-    await getReviews()
+    try {
+      await getMovies()
+      await getReviews()
+    } catch (err) {
+      console.error(err)
+      showToastErrorRefreshing()
+    }
   }
 
   useEffect(() => {
@@ -37,6 +41,16 @@ const Homepage = () => {
   const showToastLoggedIn = () => {
     ToastAndroid.showWithGravityAndOffset(
       t('toast_user_logged_in'),
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    )
+  }
+
+  const showToastErrorRefreshing = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      t('toast_error_refreshing'),
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
       25,

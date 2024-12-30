@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { User } from '../../../types/User'
+import i18n from '../../../../i18n'
 
 const schema = z.object({
   avatar: z.string().optional(),
@@ -7,7 +8,7 @@ const schema = z.object({
     .string()
     .min(5)
     .max(20, {
-      message: 'Username must be between 5 and 20 characters',
+      message: i18n.t('zod_error_username'),
     })
     .optional(),
 })

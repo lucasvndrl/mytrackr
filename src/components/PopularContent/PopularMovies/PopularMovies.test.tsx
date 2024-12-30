@@ -4,6 +4,7 @@ import PopularMovies from './index'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { Movie } from '../../../types/Movie'
 import '@react-native-async-storage/async-storage'
+import { customRender } from '../../../utils/customRender'
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
@@ -36,19 +37,19 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   setItem: jest.fn(),
   getItem: jest.fn(),
 }))
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-    i18n: {
-      changeLanguage: () => new Promise(() => {}),
-    },
-    initReactI18next: { type: '3rdParty', init: jest.fn() },
-  }),
-}))
+// jest.mock('react-i18next', () => ({
+//   useTranslation: () => ({
+//     t: (key: string) => key,
+//     i18n: {
+//       changeLanguage: () => new Promise(() => {}),
+//     },
+//     initReactI18next: { type: '3rdParty', init: jest.fn() },
+//   }),
+// }))
 describe('PopularMovies Component', () => {
   it('should render the title and movies', () => {
     ;(useNavigation as jest.Mock).mockReturnValue({ navigate: mockedNavigate })
-    render(<PopularMovies movies={mockMovies} />)
+    customRender(<PopularMovies movies={mockMovies} />)
 
     expect(screen.getByText('Popular movies this month')).toBeTruthy()
 
@@ -57,7 +58,7 @@ describe('PopularMovies Component', () => {
   })
 
   it('should navigate to MovieDetail on movie press', () => {
-    render(<PopularMovies movies={mockMovies} />)
+    customRender(<PopularMovies movies={mockMovies} />)
     const touchableElements = screen.getAllByTestId('button-movie-details')
     fireEvent.press(touchableElements[0])
 

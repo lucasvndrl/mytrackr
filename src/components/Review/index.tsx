@@ -62,7 +62,7 @@ const Review = ({ review, showFullInfo, testID }: ReviewProps) => {
               <Spacing height={5} />
             )}
             <Typography type='Small paragraph' color={COLORS.green}>
-              {review.reviewer_name}
+              {review.reviewer_name ? review.reviewer_name : t('user_unknown')}
             </Typography>
             <Typography type='Small paragraph' color={COLORS.white} textAlign='justify'>
               {review.review_text}

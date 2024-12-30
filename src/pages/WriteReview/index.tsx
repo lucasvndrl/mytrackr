@@ -27,7 +27,6 @@ import { useAuth0 } from 'react-native-auth0'
 import { useAuth } from '../../hooks/Auth'
 import { ActivityIndicator } from 'react-native-paper'
 import CustomModal from '../../components/CustomModal'
-import { messages } from '../../constants/messages'
 import { useTranslation } from 'react-i18next'
 import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
@@ -56,11 +55,16 @@ const WriteReview = () => {
         review_text: data.review,
         reviewer: authUser.userId,
       } as CreateReviewDTO
-      const response = await createReview(reviewDTO, token)
-      if (response.status === 201) {
-        setIsLoading(false)
-        setShowModal(true)
-      } else {
+      try {
+        const response = await createReview(reviewDTO, token)
+        console.log(response)
+        if (response.status === 201) {
+          setError(false)
+          setIsLoading(false)
+          setShowModal(true)
+        }
+      } catch (e) {
+        console.error(e)
         setIsLoading(false)
         setError(true)
         setShowModal(true)
@@ -77,7 +81,7 @@ const WriteReview = () => {
     <Container>
       {showModal && (
         <CustomModal
-          buttonMessage={t('review_response_button')}
+          buttonMessage={error ? 'OK' : t('review_response_button')}
           message={error ? t('review_not_created_error') : t('review_created_successfully_msg')}
           title={
             error ? t('review_not_created_error_title') : t('review_created_successfully_title')

@@ -1,10 +1,17 @@
 import { z } from 'zod'
+import i18n from '../../../i18n'
 
 const schema = z.object({
-  rating: z.number().int().min(1).max(5),
-  review: z.string().min(15).max(250, {
-    message: 'Review must contain between 15 and 250 characters',
-  }),
+  rating: z
+    .number()
+    .int()
+    .refine((value) => value >= 1 && value <= 5, { message: i18n.t('zod_error_rating') }),
+  review: z
+    .string()
+    .min(15, { message: i18n.t('zod_error_review_min') })
+    .max(250, {
+      message: i18n.t('zod_error_review_max'),
+    }),
 })
 
 export const writeReviewFormSchema = z.intersection(schema, z.object({}))

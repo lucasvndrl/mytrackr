@@ -15,6 +15,7 @@ import ReviewDetail from '../pages/ReviewDetail'
 import CheckCredentials from '../pages/CheckCredentials'
 import WriteReview from '../pages/WriteReview'
 import ReviewsList from '../pages/ReviewsList'
+import { useTranslation } from 'react-i18next'
 const Stack = createNativeStackNavigator<ScreenParamList>()
 
 interface AppRoutesProps {
@@ -26,6 +27,7 @@ const CustomStackNavigation = ({ initialRouteName, initialParams }: AppRoutesPro
   const { Navigator, Screen, Group } = Stack
   const { authUser } = useAuth()
   const { user } = useAuth0()
+  const { t } = useTranslation()
 
   const loggedIn = user !== undefined && user !== null
   // const loggedIn = authUser.logged
@@ -129,7 +131,7 @@ const CustomStackNavigation = ({ initialRouteName, initialParams }: AppRoutesPro
                   closeIcon={true}
                   userIcon={true}
                   onPress={() => props.navigation.pop()}
-                  options={{ title: 'Write your review' }}
+                  options={{ title: t('write_your_review_header') }}
                 />
               ),
               navigationBarColor: COLORS.background,

@@ -10,7 +10,6 @@ import Form from './Form'
 import { UserFormData, getUserFormDefaultValues, userFormSchema } from './Form/schema'
 import { ButtonContainer, Container, PageTitleContainer } from './styles'
 import CustomModal from '../../components/CustomModal'
-import { messages } from '../../constants/messages'
 import { useTranslation } from 'react-i18next'
 import AccessibilityHandler from '../../utils/AccessibilityHandler'
 
@@ -75,7 +74,7 @@ const Register = () => {
           <Form form={form} />
           <AccessibilityHandler
             accessible
-            accessibilityLabel={t('acs_register_user_button')}
+            accessibilityRole='button'
             accessibilityHint={t('acs_register_user_button_hint')}
           >
             <ButtonContainer onPress={form.handleSubmit(onSubmit)}>

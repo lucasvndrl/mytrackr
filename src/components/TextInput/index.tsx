@@ -16,6 +16,7 @@ interface TextInputProps<T extends FieldValues> {
   maxLength?: number
   numberOfLines?: number
   placeholder?: string
+  accessibilityHint?: string
 }
 
 const TextInput = <T extends FieldValues>({
@@ -29,6 +30,7 @@ const TextInput = <T extends FieldValues>({
   maxLength,
   numberOfLines,
   placeholder,
+  accessibilityHint,
 }: TextInputProps<T>) => {
   const {
     control,
@@ -41,19 +43,21 @@ const TextInput = <T extends FieldValues>({
       name={name}
       render={({ field: { onChange, onBlur, value } }) => (
         <>
-          <Input
-            label={label}
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-            keyboardType={keyboardType}
-            render={mask ? (props) => <MaskInput {...props} mask={mask} /> : undefined}
-            disabled={disabled}
-            multiline={multiline}
-            maxLength={maxLength}
-            numberOfLines={numberOfLines}
-            placeholder={placeholder}
-          />
+          <AccessibilityHandler accessibilityHint={accessibilityHint}>
+            <Input
+              label={label}
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              keyboardType={keyboardType}
+              render={mask ? (props) => <MaskInput {...props} mask={mask} /> : undefined}
+              disabled={disabled}
+              multiline={multiline}
+              maxLength={maxLength}
+              numberOfLines={numberOfLines}
+              placeholder={placeholder}
+            />
+          </AccessibilityHandler>
           <AccessibilityHandler accessible>
             <HelperText type='error'>
               {getProperty<FieldError>(errors, name)?.message ?? ' '}
