@@ -7,11 +7,12 @@ import Typography from '../../components/Typography'
 import { COLORS } from '../../constants/theme'
 import { useAuth } from '../../hooks/Auth'
 import Form from './Form'
-import { UserFormData, getUserFormDefaultValues, userFormSchema } from './Form/schema'
+import { UserFormData, createUserFormSchema, getUserFormDefaultValues } from './Form/schema'
 import { ButtonContainer, Container, PageTitleContainer } from './styles'
 import CustomModal from '../../components/CustomModal'
 import { useTranslation } from 'react-i18next'
 import AccessibilityHandler from '../../utils/AccessibilityHandler'
+import i18n from '../../../i18n'
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -24,7 +25,7 @@ const Register = () => {
 
   const form = useForm<UserFormData>({
     defaultValues: userFormDefaultValues,
-    resolver: zodResolver(userFormSchema),
+    resolver: zodResolver(createUserFormSchema()),
   })
 
   const onSubmit = async () => {

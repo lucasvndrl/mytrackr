@@ -7,6 +7,7 @@ import Avatar from '../../../components/Avatar'
 import { Container } from './styles'
 import { useTranslation } from 'react-i18next'
 import AccessibilityHandler from '../../../utils/AccessibilityHandler'
+import i18n from '../../../../i18n'
 
 interface RegisterUserForm {
   form: UseFormReturn<UserFormData>
@@ -14,6 +15,7 @@ interface RegisterUserForm {
 
 const Form = ({ form }: RegisterUserForm) => {
   const { t } = useTranslation()
+
   return (
     <>
       <Container>

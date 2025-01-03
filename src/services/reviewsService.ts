@@ -21,7 +21,7 @@ export interface CreateReviewDTO {
 export const getAllReviews = async (
   accessToken: string,
 ): Promise<AxiosResponse<ReviewsTable[]> | undefined> => {
-  const response = await axios.get(`https://1ee7-170-78-98-160.ngrok-free.app/reviews/`, {
+  const response = await axios.get(`https://f30b-170-78-98-160.ngrok-free.app/reviews/`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -36,7 +36,7 @@ export const createReview = async (
 ): Promise<AxiosResponse> => {
   console.log(reviewDTO)
   const response = await axios.post(
-    `https://1ee7-170-78-98-160.ngrok-free.app/reviews/`,
+    `https://f30b-170-78-98-160.ngrok-free.app/reviews/`,
     reviewDTO,
     {
       headers: {

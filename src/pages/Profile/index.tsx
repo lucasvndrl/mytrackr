@@ -10,7 +10,7 @@ import { COLORS } from '../../constants/theme'
 import { useAuth } from '../../hooks/Auth'
 import { deleteUser, updateUserDetails } from '../../services/userService'
 import Form from './Form'
-import { ProfileFormData, getUserFormDefaultValues, profileFormSchema } from './Form/schema'
+import { ProfileFormData, createProfileFormSchema, getUserFormDefaultValues } from './Form/schema'
 import { ButtonContainer, ButtonDeleteContainer, Container, PageTitleContainer } from './styles'
 import { Alert, ToastAndroid } from 'react-native'
 import { useTranslation } from 'react-i18next'
@@ -47,7 +47,7 @@ const Profile = () => {
 
   const form = useForm<ProfileFormData>({
     defaultValues: userFormDefaultValues,
-    resolver: zodResolver(profileFormSchema),
+    resolver: zodResolver(createProfileFormSchema()),
   })
 
   const watchedValues = form.watch()
@@ -60,7 +60,7 @@ const Profile = () => {
   const onSubmit = async () => {
     setIsLoading(true)
     const token = await getCredentials().then((res) => res?.accessToken)
-    const formValues = form.getValues() as UpdateAccount
+    const formValues = form.getValues() as unknown as UpdateAccount
     const registerData = { ...formValues, email: authUser.email }
 
     if (token)

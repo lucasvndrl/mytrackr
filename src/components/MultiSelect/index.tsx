@@ -9,7 +9,7 @@ import {
   PathValue,
   UseFormReturn,
 } from 'react-hook-form'
-import { defaultGenresValues } from '../../pages/Register/Form/defaultGenresValues'
+import { getDefaultGenresValues } from '../../pages/Register/Form/defaultGenresValues'
 import { HelperText } from 'react-native-paper'
 import { getProperty } from '../../utils/object'
 import Typography from '../Typography'
@@ -43,7 +43,7 @@ const MultiSelect = <T extends FieldValues>({ form, name }: MultiSelectProps<T>)
     )
     setValue(name, updatedItems as PathValue<T, Path<T>>)
   }
-
+  const genres = getDefaultGenresValues()
   return (
     <>
       <AccessibilityHandler accessible>
@@ -60,7 +60,7 @@ const MultiSelect = <T extends FieldValues>({ form, name }: MultiSelectProps<T>)
         <Controller
           control={control}
           name={name}
-          defaultValue={defaultGenresValues as PathValue<T, Path<T>>}
+          defaultValue={genres as PathValue<T, Path<T>>}
           render={({ field }) => {
             const currentItems = field.value
             return currentItems.map((item: ItemProps) => (

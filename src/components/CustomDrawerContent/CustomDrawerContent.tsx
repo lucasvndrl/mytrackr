@@ -19,7 +19,7 @@ const CustomDrawerContent = (props: any) => {
       login: '',
       avatar: '',
     })
-    props.closeDrawer()
+    props.navigation.closeDrawer()
   }
   return (
     <DrawerContentScrollView {...props}>

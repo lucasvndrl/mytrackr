@@ -1,6 +1,6 @@
 import i18n from '../../../../i18n'
 
-export const defaultGenresValues = [
+export const getDefaultGenresValues = () => [
   { selected: false, id: 1, name: i18n.t('genres_label_horror') },
   { selected: false, id: 2, name: i18n.t('genres_label_comedy') },
   { selected: false, id: 3, name: i18n.t('genres_label_romance') },

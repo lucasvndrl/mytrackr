@@ -18,7 +18,11 @@ import { Movie } from '../../types/Movie'
 import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import StarRating from 'react-native-star-rating-widget'
 import { UseFormReturn, useForm } from 'react-hook-form'
-import { WriteReviewFormData, writeReviewFormDefaultValues, writeReviewFormSchema } from './schema'
+import {
+  WriteReviewFormData,
+  createWriteReviewFormSchema,
+  getWriteReviewFormDefaultValues,
+} from './schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import TextInput from '../../components/TextInput'
 import StarRatingInput from '../../components/StarRatingComponent'
@@ -38,8 +42,8 @@ const WriteReview = () => {
   const { t } = useTranslation()
   const movie: Movie = params.movie ?? ({} as Movie)
   const form = useForm<WriteReviewFormData>({
-    defaultValues: writeReviewFormDefaultValues,
-    resolver: zodResolver(writeReviewFormSchema),
+    defaultValues: getWriteReviewFormDefaultValues(),
+    resolver: zodResolver(createWriteReviewFormSchema()),
   })
   const { getCredentials } = useAuth0()
   const { authUser } = useAuth()
