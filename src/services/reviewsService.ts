@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import { EXPO_PUBLIC_API_URL } from '@env'
 
 export interface ReviewsTable {
   review_id: string
@@ -21,7 +22,7 @@ export interface CreateReviewDTO {
 export const getAllReviews = async (
   accessToken: string,
 ): Promise<AxiosResponse<ReviewsTable[]> | undefined> => {
-  const response = await axios.get(`https://f30b-170-78-98-160.ngrok-free.app/reviews/`, {
+  const response = await axios.get(`${EXPO_PUBLIC_API_URL}/reviews/`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -35,15 +36,11 @@ export const createReview = async (
   accessToken: string,
 ): Promise<AxiosResponse> => {
   console.log(reviewDTO)
-  const response = await axios.post(
-    `https://f30b-170-78-98-160.ngrok-free.app/reviews/`,
-    reviewDTO,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+  const response = await axios.post(`${EXPO_PUBLIC_API_URL}/reviews/`, reviewDTO, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
-  )
+  })
 
   return response
 }

@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
-import { ReviewsTable } from './reviewsService'
+import { EXPO_PUBLIC_API_URL } from '@env'
+
 export interface MoviesTable {
   movie_id: string
   title: string
@@ -12,7 +13,7 @@ export interface MoviesTable {
 export const getAllMovies = async (
   accessToken: string,
 ): Promise<AxiosResponse<MoviesTable[]> | undefined> => {
-  const response = await axios.get(`https://f30b-170-78-98-160.ngrok-free.app/movies/`, {
+  const response = await axios.get(`${EXPO_PUBLIC_API_URL}/movies/`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { AccountTable } from '../types/AuthContext'
 import { UpdateAccount } from '../pages/Profile'
+import { EXPO_PUBLIC_API_URL } from '@env'
 
 export interface RegisterUserProps {
   user_id: string
@@ -34,7 +35,7 @@ export const registerUser = async ({
   } as AccountTable
 
   const response = await axios.post(
-    `https://f30b-170-78-98-160.ngrok-free.app/account/`,
+    `${EXPO_PUBLIC_API_URL}/account/`,
     {
       account,
     },
@@ -52,7 +53,7 @@ export const getUserDetails = async (
   accessToken: string,
 ): Promise<AxiosResponse<AccountTable> | undefined> => {
   try {
-    const response = await axios.get(`https://f30b-170-78-98-160.ngrok-free.app/account/`, {
+    const response = await axios.get(`${EXPO_PUBLIC_API_URL}/account/`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -80,7 +81,7 @@ export const updateUserDetails = async (
   accessToken: string,
 ): Promise<AxiosResponse> => {
   const response = await axios.patch(
-    `https://f30b-170-78-98-160.ngrok-free.app/account/`,
+    `${EXPO_PUBLIC_API_URL}/account/`,
     {
       account,
     },
@@ -95,7 +96,7 @@ export const updateUserDetails = async (
 }
 
 export const deleteUser = async (accessToken: string): Promise<AxiosResponse> => {
-  const response = await axios.delete(`https://f30b-170-78-98-160.ngrok-free.app/account/`, {
+  const response = await axios.delete(`${EXPO_PUBLIC_API_URL}/account/`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
