@@ -61,7 +61,7 @@ const WriteReview = () => {
       } as CreateReviewDTO
       try {
         const response = await createReview(reviewDTO, token)
-        console.log(response)
+
         if (response.status === 201) {
           setError(false)
           setIsLoading(false)
@@ -95,7 +95,7 @@ const WriteReview = () => {
         />
       )}
       <HeaderView>
-        <LeftContainer accessible accessibilityLabel={t('acs_write_review_left_container')}>
+        <LeftContainer>
           <MovieTitleContainer>
             <AccessibilityHandler accessible>
               <Typography color={COLORS.white} fontSize={SIZES.large} fontWeight='Bold'>
@@ -113,8 +113,13 @@ const WriteReview = () => {
               </Typography>
             </AccessibilityHandler>
           </MovieTitleContainer>
-          <StatsContainer accessible accessibilityLabel={t('acs_movie_rating')}>
-            <StarRatingInput form={form} name='rating' starSize={30} />
+          <StatsContainer>
+            <StarRatingInput
+              form={form}
+              name='rating'
+              starSize={30}
+              acsLabel={t('acs_rating_label')}
+            />
           </StatsContainer>
         </LeftContainer>
         <RightContainer>

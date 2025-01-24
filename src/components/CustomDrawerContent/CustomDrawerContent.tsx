@@ -5,10 +5,12 @@ import Typography from '../Typography'
 import { COLORS } from '../../constants/theme'
 import { useAuth0 } from 'react-native-auth0'
 import { useAuth } from '../../hooks/Auth'
+import { useTranslation } from 'react-i18next'
 
 const CustomDrawerContent = (props: any) => {
   const { clearSession } = useAuth0()
   const { setAuthUser } = useAuth()
+  const { t } = useTranslation()
 
   const handleLogout = () => {
     clearSession()
@@ -27,7 +29,7 @@ const CustomDrawerContent = (props: any) => {
       <View style={styles.customItemContainer}>
         <TouchableOpacity style={styles.customItem} onPress={() => handleLogout()}>
           <Typography type='Heading 3' color={COLORS.white}>
-            Sign out
+            {t('acs_sign_out')}
           </Typography>
         </TouchableOpacity>
       </View>

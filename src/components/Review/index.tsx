@@ -28,10 +28,13 @@ const Review = ({ review, showFullInfo, testID }: ReviewProps) => {
   const { authUser } = useAuth()
   const { t } = useTranslation()
   const defaultAvatar = require('../../assets/icons/user.png')
+  const reviewrName = review.reviewer_name ? review.reviewer_name : t('user_unknown')
   return (
     <AccessibilityHandler
       accessible
-      accessibilityLabel={t('acs_review_item')}
+      accessibilityLabel={`${t('acs_review_for')} ${review.movie_title} ${t(
+        'acs_review_by',
+      )} ${reviewrName}`}
       accessibilityHint={t('acs_review_item_hint')}
     >
       <Container
@@ -62,7 +65,7 @@ const Review = ({ review, showFullInfo, testID }: ReviewProps) => {
               <Spacing height={5} />
             )}
             <Typography type='Small paragraph' color={COLORS.green}>
-              {review.reviewer_name ? review.reviewer_name : t('user_unknown')}
+              {reviewrName}
             </Typography>
             <Typography type='Small paragraph' color={COLORS.white} textAlign='justify'>
               {review.review_text}

@@ -55,7 +55,11 @@ const SimpleHeader: FC<SimpleHeaderProps> = ({
       }}
     >
       <RowTextIcon>
-        <AccessibilityHandler accessible>
+        <AccessibilityHandler
+          accessible
+          accessibilityRole='button'
+          accessibilityHint={closeIcon ? t('acs_button_back_hint') : t('acs_button_menu_hint')}
+        >
           <Button onPress={onPress}>
             {closeIcon ? (
               <Image

@@ -65,13 +65,14 @@ const ReviewDetail = () => {
               </Typography>
             </AccessibilityHandler>
           </MovieTitleRow>
-          <AccessibilityHandler accessible accessibilityLabel={t('acs_movie_rating')}>
-            <StarRatingDisplay rating={review.rating} />
-          </AccessibilityHandler>
+          <StarRatingDisplay
+            rating={review.rating}
+            accessibilityLabel={`${review.rating} ${t('acs_rating_label')}`}
+          />
           <Spacing height={5} />
           {/* <Typography fontSize={SIZES.medium}>{}</Typography> */}
           <Spacing height={5} />
-          <AccessibilityHandler accessible accessibilityLabel={t('acs_review_text')}>
+          <AccessibilityHandler accessible>
             <Typography fontSize={SIZES.medium} lineHeight={12}>
               {review.review_text}
             </Typography>

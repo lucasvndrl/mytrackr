@@ -19,8 +19,13 @@ const Form = ({ form }: RegisterUserForm) => {
   return (
     <>
       <Container>
-        <Avatar form={form} name='avatar' />
-
+        <AccessibilityHandler
+          accessible
+          accessibilityRole='button'
+          accessibilityHint={t('acs_register_avatar_hint')}
+        >
+          <Avatar form={form} name='avatar' />
+        </AccessibilityHandler>
         <TextInput
           form={form}
           label='Username'

@@ -6,6 +6,7 @@ import CustomStackNavigation from './CustomStackNavigation'
 import { COLORS } from '../constants/theme'
 import CustomDrawerContent from '../components/CustomDrawerContent/CustomDrawerContent'
 import Homepage from '../pages/Homepage'
+import { useTranslation } from 'react-i18next'
 
 interface AppRoutesProps {
   initialRouteName?: keyof ScreenParamList
@@ -18,6 +19,7 @@ const { Navigator, Screen } = Drawer
 export const AppRoutes = ({ initialRouteName, initialParams }: AppRoutesProps) => {
   const dimensions = useWindowDimensions()
   const { authUser } = useAuth()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -36,7 +38,7 @@ export const AppRoutes = ({ initialRouteName, initialParams }: AppRoutesProps) =
         }}
         backBehavior='history'
       >
-        <Screen name='Tela inicial'>
+        <Screen name={t('homepage')}>
           {(props) => (
             <CustomStackNavigation
               {...props}

@@ -3,6 +3,7 @@ import { Controller, FieldError, FieldValues, Path, UseFormReturn } from 'react-
 import StarRating from 'react-native-star-rating-widget'
 import { HelperText } from 'react-native-paper'
 import { getProperty } from '../../utils/object'
+import { useTranslation } from 'react-i18next'
 
 interface StarRatingInputProps<T extends FieldValues> {
   form: UseFormReturn<T>
@@ -10,6 +11,9 @@ interface StarRatingInputProps<T extends FieldValues> {
   label?: string
   starSize?: number
   enableHalfStar?: boolean
+  acsLabel?: string
+  acsAdjustmentLabelPreStar?: string
+  acsAdjustementLabelPostStar?: string
 }
 
 const StarRatingInput = <T extends FieldValues>({
@@ -18,6 +22,9 @@ const StarRatingInput = <T extends FieldValues>({
   label,
   starSize = 30,
   enableHalfStar = false,
+  acsLabel,
+  acsAdjustmentLabelPreStar,
+  acsAdjustementLabelPostStar,
 }: StarRatingInputProps<T>) => {
   const {
     control,
@@ -35,6 +42,8 @@ const StarRatingInput = <T extends FieldValues>({
             onChange={onChange}
             starSize={starSize}
             enableHalfStar={enableHalfStar}
+            enableSwiping={true}
+            accessibilityLabel={acsLabel}
           />
           <HelperText type='error'>
             {getProperty<FieldError>(errors, name)?.message ?? ' '}

@@ -89,6 +89,16 @@
   "acs_review_item_hint": "Press to see review details",
   "acs_clickable_profile_picture_hint": "Press to see user profile",
   "acs_change_language_option": "Press to open language settings",
+  "acs_rating_label": "out of 5 stars",
+  "acs_rating_pre_stars": "Give ",
+  "acs_rating_post_stars": "out of 5 stars",
+  "acs_sign_out": "Sign out",
+  "acs_button_back": "Back button",
+  "acs_button_back_hint": "Navigates back to previous screen",
+  "acs_button_menu": "Menu button",
+  "acs_button_menu_hint": "Opens menu",
+  "acs_review_for": "Review for",
+  "acs_review_by": "By",
   "zod_error_username_min": "Username must be at least 5 characters",
   "zod_erro_username_max": "Username must be less than 20 characters",
   "zod_error_genres": "You must select at least one genre",
@@ -100,5 +110,6 @@
   "genres_label_romance": "Romance",
   "genres_label_action": "Action",
   "genres_label_drama": "Drama",
-  "genres_label_giant_robots": "Giant Robots"
+  "genres_label_giant_robots": "Giant Robots",
+  "homepage": "Homepage"
 }

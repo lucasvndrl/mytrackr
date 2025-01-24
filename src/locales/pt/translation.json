@@ -87,6 +87,14 @@
   "acs_avatar_update_hint": "Pressione para atualizar a foto de perfil",
   "acs_clickable_profile_picture_hint": "Pressione para ver detalhes do perfil",
   "acs_change_language_option": "Pressione para abrir as configurações de idioma",
+  "acs_rating_label": "de 5 estrelas",
+  "acs_sign_out": "Deslogar",
+  "acs_button_back": "Botão voltar",
+  "acs_button_back_hint": "Navega para tela anterior",
+  "acs_button_menu": "Botão de menu",
+  "acs_button_menu_hint": "Pressione para abrir o menu",
+  "acs_review_for": "Análise para",
+  "acs_review_by": "Feita por",
   "zod_error_username_min": "Nome de usuário deve conter no mínimo 5 caracteres",
   "zod_error_username_max": "Nome de usuário deve conter no máximo 20 caracteres",
   "zod_error_genres": "Você precisa selecionar ao menos um gênero",
@@ -98,5 +106,6 @@
   "genres_label_romance": "Romance",
   "genres_label_action": "Ação",
   "genres_label_drama": "Drama",
-  "genres_label_giant_robots": "Robôs Gigantes"
+  "genres_label_giant_robots": "Robôs Gigantes",
+  "homepage": "Tela Inicial"
 }
